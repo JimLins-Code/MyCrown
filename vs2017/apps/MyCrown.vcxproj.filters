@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\src">
+      <UniqueIdentifier>{26c7eca0-34a5-4957-9947-0305a31eb5a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{06a35354-d384-4e2b-af41-ea689e956636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\core">
+      <UniqueIdentifier>{85c82c12-2835-4ab7-8be9-6a8e117e7a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\core">
+      <UniqueIdentifier>{af089450-b0bb-467b-bf8d-1990e50d5a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\core\strings">
+      <UniqueIdentifier>{dedf4289-a0df-4b6e-8312-b12d8583e89d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\core\strings">
+      <UniqueIdentifier>{42d9af1c-22c4-44d1-9978-7b2a6c3a2e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\src\core\error">
+      <UniqueIdentifier>{1bb92540-2f28-48c8-bfe7-cc2e8596b601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\core\error">
+      <UniqueIdentifier>{b4b066ed-b842-44cf-a865-9f5a2bd8b91f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MyCrown.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\strings\string_id.cpp">
+      <Filter>Source Files\src\core\strings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\error\error.cpp">
+      <Filter>Source Files\src\core\error</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\murmur.cpp">
+      <Filter>Source Files\src\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\core\strings\dynamic_string.h">
+      <Filter>Header Files\src\core\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\strings\string_id.h">
+      <Filter>Header Files\src\core\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\strings\type.h">
+      <Filter>Header Files\src\core\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\types.h">
+      <Filter>Header Files\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\murmur.h">
+      <Filter>Header Files\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\error\error.h">
+      <Filter>Header Files\src\core\error</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\core\strings\string.inl">
+      <Filter>Header Files\src\core\strings</Filter>
+    </None>
+  </ItemGroup>
+</Project>
