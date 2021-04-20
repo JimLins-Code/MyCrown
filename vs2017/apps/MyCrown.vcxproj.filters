@@ -100,5 +100,11 @@
     <None Include="..\..\src\core\strings\string_view.inl">
       <Filter>Source Files\src\core\strings</Filter>
     </None>
+    <None Include="..\..\src\core\error\error.inl">
+      <Filter>Header Files\src\core\error</Filter>
+    </None>
+    <None Include="..\..\src\core\memory\memory.inl">
+      <Filter>Header Files\src\core\memory</Filter>
+    </None>
   </ItemGroup>
 </Project>

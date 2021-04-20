@@ -1,6 +1,6 @@
 #include "core/strings/string_id.h"
 #include "core/murmur.h"
-#include "core/error/error.h"
+#include "core/error/error.inl"
 #include "core/strings/string.inl"
 
 
