@@ -5,6 +5,10 @@
  * Copy crown
  */
 
+#include "core/strings/string_id.h"
+#include "core/strings/string_view.h"
+#include "core/strings/types.h"
+
 namespace crown
 {
 	/// Hashed string
