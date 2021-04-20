@@ -156,20 +156,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\error\error.cpp" />
+    <ClCompile Include="..\..\src\core\memory\globals.cpp" />
     <ClCompile Include="..\..\src\core\murmur.cpp" />
     <ClCompile Include="..\..\src\core\strings\string_id.cpp" />
     <ClCompile Include="MyCrown.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\error\error.h" />
+    <ClInclude Include="..\..\src\core\memory\allocator.h" />
+    <ClInclude Include="..\..\src\core\memory\globals.h" />
+    <ClInclude Include="..\..\src\core\memory\types.h" />
     <ClInclude Include="..\..\src\core\murmur.h" />
     <ClInclude Include="..\..\src\core\strings\dynamic_string.h" />
     <ClInclude Include="..\..\src\core\strings\string_id.h" />
-    <ClInclude Include="..\..\src\core\strings\type.h" />
+    <ClInclude Include="..\..\src\core\strings\string_view.h" />
+    <ClInclude Include="..\..\src\core\strings\types.h" />
     <ClInclude Include="..\..\src\core\types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl" />
+    <None Include="..\..\src\core\strings\string_view.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

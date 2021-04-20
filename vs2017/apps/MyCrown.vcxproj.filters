@@ -37,6 +37,12 @@
     <Filter Include="Source Files\src\core\error">
       <UniqueIdentifier>{b4b066ed-b842-44cf-a865-9f5a2bd8b91f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src\core\memory">
+      <UniqueIdentifier>{74bdf543-720a-49ab-94ca-0641f90e9b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\core\memory">
+      <UniqueIdentifier>{49155636-408e-46cf-b2fd-dfba87760cf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyCrown.cpp">
@@ -51,15 +57,15 @@
     <ClCompile Include="..\..\src\core\murmur.cpp">
       <Filter>Source Files\src\core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\memory\globals.cpp">
+      <Filter>Source Files\src\core\memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\strings\dynamic_string.h">
       <Filter>Header Files\src\core\strings</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\strings\string_id.h">
-      <Filter>Header Files\src\core\strings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\strings\type.h">
       <Filter>Header Files\src\core\strings</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\types.h">
@@ -71,10 +77,28 @@
     <ClInclude Include="..\..\src\core\error\error.h">
       <Filter>Header Files\src\core\error</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\core\strings\string_view.h">
+      <Filter>Header Files\src\core\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\strings\types.h">
+      <Filter>Header Files\src\core\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\memory\types.h">
+      <Filter>Header Files\src\core\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\memory\allocator.h">
+      <Filter>Header Files\src\core\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\memory\globals.h">
+      <Filter>Header Files\src\core\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
       <Filter>Header Files\src\core\strings</Filter>
+    </None>
+    <None Include="..\..\src\core\strings\string_view.inl">
+      <Filter>Source Files\src\core\strings</Filter>
     </None>
   </ItemGroup>
 </Project>
