@@ -5,7 +5,7 @@
 #include <stdarg.h>
 #include <stdio.h> // sscanf,vsnprintf
 #include <string.h> // strlen
-
+#include <algorithm> // min, max
 
 namespace crown
 {
