@@ -21,10 +21,10 @@ namespace crown
 
 		/// allocates @a size bytes of memory aligned to the specified
 		/// @a align byte and returns a pointer to the first allocated byte.
-		virtual void* allocator(u32 size, u32 align = DEFAULT_ALIGN) = 0;
+		virtual void* allocate(u32 size, u32 align = DEFAULT_ALIGN) = 0;
 
 		/// deallocates a previously allocated block of memory pointed by @a data.
-		virtual void deallocator(void* data) = 0;
+		virtual void deallocate(void* data) = 0;
 
 		/// returns the size of the memory block pointed by @a ptr or SIZE_NOT_TRACKED 
 		/// if the allocator does not support memory tracking.

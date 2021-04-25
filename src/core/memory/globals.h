@@ -7,11 +7,12 @@
  *
  */
 
-#include "core/memory/types.h""
+#include "core/memory/types.h"
+
 namespace crown
 {
 	Allocator& default_allocator();
-	Allocator& defalut_scratch_allocator();
+	Allocator& default_scratch_allocator();
 	namespace memory_globals
 	{
 		/// constructs the initial default allocators.

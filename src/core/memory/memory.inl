@@ -32,7 +32,7 @@ namespace crown
 		{
 			if (!ptr) return;
 			ptr->~T();
-			a.deallocator(ptr);
+			a.deallocate(ptr);
 		}
 
 
@@ -50,13 +50,13 @@ namespace crown
 	template <typename T>
 	inline T &construct(void *p, Allocator& a, Int2Type<true>)
 	{
-		return *(*T)new(p) T(a);
+		return *(T*)new (p) T(a);
 	}
 
 	template <typename T>
 	inline T &construct(void *p, Allocator& /*a*/, Int2Type<false>)
 	{
-		return *(T*)new(p) T();
+		return *(T*)new (p) T();
 	}
 
 	template<typename T>
