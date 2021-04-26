@@ -15,6 +15,7 @@ namespace crown
 			u32 size;
 		};
 
+		// 0xffffffffu => 32位无符号整数。即2^32 = 4294967295
 		const u32 HEADER_PAD_VALUE = 0xffffffffu;
 
 		inline void* data_pointer(Header* header, u32 align) {
@@ -22,6 +23,14 @@ namespace crown
 			return memory::align_top(p, align);
 		}
 
+		/*
+			从给定的data中找到这段内存对应的header
+			while (p[-1] == HEADER_PAD_VALUE)
+			{
+				--p;
+			}
+			p[-1]返回当前地址的上一字节内容，while的结构相当于逆向遍历指针
+		*/
 		inline Header* header(const void* data)
 		{
 			u32* p = (u32*)data;
