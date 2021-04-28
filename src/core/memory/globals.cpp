@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2012-2030 @banlinhuo al.
+ * License: https://github.com/dbartolini/crown/blob/master/LICENSE
+ * Copy crown
+ * memory globals.h
+ *
+ */
 #include "globals.h"
 #include "core/error/error.inl"
 #include "core/memory/memory.inl"
@@ -237,8 +244,10 @@ namespace crown
 
 		void init()
 		{
-			//_default_allocator = new (_buffer) HeapAllocator();
-			//_default_scratch_allocator = new (_buffer+sizeof(HeapAllocator))ScratchAllocator(*_default_allocator,1024*1024);
+			//_default_allocator = new(_buffer)HeapAllocator();
+			_default_allocator = new HeapAllocator();
+			//_default_scratch_allocator = new(_buffer+sizeof(HeapAllocator))ScratchAllocator(*_default_allocator,1024*1024);
+			_default_scratch_allocator = new ScratchAllocator(*_default_allocator, 1024 * 1024);
 		}
 
 		void shutdown()

@@ -2,6 +2,39 @@
 
 
 
+### 2021-04-27
+
+* 内存大小
+
+  ```c++
+  1 Byte = 8 Bits
+  
+  1 KB = 1024 Bytes
+  
+  1MB = 1024 KBs
+  
+  1G = 1024 MBs
+  ```
+
+* void*
+
+  ```
+  x64:
+  	sizeof(void*) == 8 Byte
+  x86:
+  	sizeof(void*) == 4 Byte
+  ```
+
+  void* 是指针，可以指向任何指针。（除了函数地址，有些平台下函数的地址超过了void*大小能够指示的范围）。由编译器决定void* 的大小。
+
+  C-FAQ:http://c-faq.com/ptrs/generic.html
+
+  
+
+
+
+---
+
 ### 2021-04-26
 
 * memory的内存管理对象global.cpp的实现中用到了两个内存分配器

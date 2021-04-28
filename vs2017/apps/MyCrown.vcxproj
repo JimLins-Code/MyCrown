@@ -165,6 +165,7 @@
     <ClInclude Include="..\..\src\core\error\error.h" />
     <ClInclude Include="..\..\src\core\memory\allocator.h" />
     <ClInclude Include="..\..\src\core\memory\globals.h" />
+    <ClInclude Include="..\..\src\core\memory\temp_allocator.h" />
     <ClInclude Include="..\..\src\core\memory\types.h" />
     <ClInclude Include="..\..\src\core\murmur.h" />
     <ClInclude Include="..\..\src\core\strings\dynamic_string.h" />

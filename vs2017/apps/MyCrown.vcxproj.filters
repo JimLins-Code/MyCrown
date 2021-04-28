@@ -92,6 +92,9 @@
     <ClInclude Include="..\..\src\core\memory\globals.h">
       <Filter>Header Files\src\core\memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\core\memory\temp_allocator.h">
+      <Filter>Header Files\src\core\memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
