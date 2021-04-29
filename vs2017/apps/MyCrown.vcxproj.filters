@@ -45,9 +45,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyCrown.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\core\strings\string_id.cpp">
       <Filter>Source Files\src\core\strings</Filter>
     </ClCompile>
@@ -92,9 +89,6 @@
     <ClInclude Include="..\..\src\core\memory\globals.h">
       <Filter>Header Files\src\core\memory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\core\memory\temp_allocator.h">
-      <Filter>Header Files\src\core\memory</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
@@ -107,6 +101,9 @@
       <Filter>Header Files\src\core\error</Filter>
     </None>
     <None Include="..\..\src\core\memory\memory.inl">
+      <Filter>Header Files\src\core\memory</Filter>
+    </None>
+    <None Include="..\..\src\core\memory\temp_allocator.inl">
       <Filter>Header Files\src\core\memory</Filter>
     </None>
   </ItemGroup>
