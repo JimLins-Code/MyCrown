@@ -2,6 +2,25 @@
 
 
 
+### 2021-04-29
+
+```
+globals.cpp
+// p:当前指向的指针
+// p[-1]上一指针指向的值。while相当于逆向遍历内存
+inline Header* header(const void* data)
+{
+	u32* p = (u32*)data;
+	while(p[-1] == HEADER_PAD_VALUE)
+	{
+		--P;
+	}
+	return (Header*)p -1;
+}
+```
+
+这里的写法比较巧妙，HEADER_PAD_VALUE其实针对align字节大小不等于4字节的时候，(因为#define HEADER_PAD_VALUE 0xffffffffu)。
+
 ### 2021-04-27
 
 * 内存大小

@@ -36,7 +36,8 @@ namespace crown
 			{
 				--p;
 			}
-			p[-1]返回当前地址的上一字节内容，while的结构相当于逆向遍历指针
+			p:当前指向指针
+			p[-1]上一指针指向的值，，while的结构相当于逆向遍历指针
 		*/
 		inline Header* header(const void* data)
 		{

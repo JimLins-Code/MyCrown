@@ -32,6 +32,15 @@ namespace crown
 		virtual u32 total_allocated(){return SIZE_NOT_TRACKED}
 	};
 
+	typedef TempAllocator<64>TempAllocator64;
+	typedef TempAllocator<128>TempAllocator128;
+	typedef TempAllocator<256>TempAllocator256;
+	typedef TempAllocator<512>TempAllocator512;
+	typedef TempAllocator<1024>TempAllocator1024;
+	typedef TempAllocator<2048>TempAllocator2048;
+	typedef TempAllocator<4096>TempAllocator4096;
+
+
 	template<int BUFFER_SIZE>
 	TempAllocator<BUFFER_SIZE>::TempAllocator(Allocator &backing) :_backing(backing), _chunk_size(4 * 1024)
 	{
@@ -54,4 +63,27 @@ namespace crown
 		}
 	}
 
+	template<int BUFFER_SIZE>
+	void* TempAllocator<BUFFER_SIZE>::allocate(u32 size, u32 align)
+	{
+		_p = (char*)memory::align_top(_p, align);
+		// if size > tempallocation memory; then use backing to allocate new
+		if (size > (_end -_p))
+		{
+			u32 to_allocate = sizeof(void*) + size + align;
+			if (to_allocate < _chunk_size)
+				to_allocate = _chunk_size;
+			_chunk_size *= 2;
+			void *p = _backing.allocate(to_allocate);
+			*(void **)_start = p;
+			_p = _start = (char*)p;
+			_end = _start + to_allocate;
+			*(void **)_start = 0;
+			_p += sizeof(void*);
+			_p = (char*)memory::align_top(_p, align);
+		}
+		void* result = _p;
+		_p += size;
+		return result;
+	}
 }// namespace crown
