@@ -28,10 +28,17 @@ int main()
 {
     std::cout << "memory test worlk!\n";
 	memory_globals::init();
-	Allocator& a = default_allocator();
+	Allocator& a = default_scratch_allocator();
 	void* p = a.allocate(32);
 	ENSURE(a.allocated_size(p) >= 32);
+	void* q = a.allocate(64);
+	ENSURE(a.allocated_size(q) >= 64);
+	a.deallocate(q);
 	a.deallocate(p);
+
+	void* v = a.allocate(128);
+	ENSURE(a.allocated_size(v) >= 128);
+	a.deallocate(v);
 
 	memory_globals::shutdown();
 }

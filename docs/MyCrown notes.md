@@ -2,6 +2,21 @@
 
 
 
+### 2021-05-11
+
+ScratchAllocator由RingBuffer原理实现，维护了一个四个成员：
+
+```
+char* _begin;	// 整个ring buffer的起始地址
+char* _end;		// 整个ring buffer的终止地址
+char* _allocate; // 当前申请的ring buffer的位置，是一个移动指针。
+char* _free;	// 当前已经回收的内存指针位置，也就是说，在_free之前、_begin之后的内存可以被重新使用。
+```
+
+以下对ring buffer的原理做如下分析：
+
+![image-20210511210049052](images/MyCrown%20notes.assert/image-20210511210049052.png)
+
 ### 2021-04-29
 
 ```

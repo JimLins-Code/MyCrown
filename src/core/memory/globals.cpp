@@ -222,7 +222,7 @@ namespace crown
 			{
 				//ScopedMutex sm(_mutex);
 				Header* h = header(p);
-				return h->size = u32((char*)p - (char*)h);
+				return h->size - u32((char*)p - (char*)h);
 			}
 
 			u32 total_allocated()
