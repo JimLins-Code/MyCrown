@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1340
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyCrown", "apps\MyCrown.vcxproj", "{5F1FE5D9-0EFB-4091-9B96-345265AF963F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_test_memory", "apps\unit_test_memory\unit_test_memory.vcxproj", "{542B5B05-BE1D-4252-9830-677A1F37E101}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "unit_test_memory", "apps\unit_test\unit_test.vcxproj", "{542B5B05-BE1D-4252-9830-677A1F37E101}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

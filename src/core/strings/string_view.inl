@@ -49,7 +49,7 @@ namespace crown
 
 	inline bool operator==(const StringView& a, const StringView& b)
 	{
-		return a._length == b._length&&strncmp(a._data, b._data, a._length);
+		return a._length == b._length && strncmp(a._data, b._data, a._length) == 0;
 	}
 
 	inline bool operator!=(const StringView& a, const StringView& b)

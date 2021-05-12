@@ -5,6 +5,7 @@
 #include "core/memory/allocator.h"
 #include "core/memory/globals.h"
 #include "core/error/error.inl"
+#include "core/strings/string_view.inl"
 
 
 using namespace crown;
@@ -24,9 +25,10 @@ using namespace crown;
 	}                                                    \
 	while (0)
 
-int main()
+
+static void test_memory()
 {
-    std::cout << "memory test worlk!\n";
+	std::cout << "memory test worlk!\n";
 	memory_globals::init();
 	Allocator& a = default_scratch_allocator();
 	void* p = a.allocate(32);
@@ -41,6 +43,49 @@ int main()
 	a.deallocate(v);
 
 	memory_globals::shutdown();
+}
+
+
+static void test_string_view()
+{
+	std::cout << "string_view test worlk!\n";
+	memory_globals::init();
+	{
+		const char* str = "foo";
+		StringView sv(str);
+		ENSURE(sv.length() == 3);
+		ENSURE(sv.data() == &str[0]);
+	}
+	{
+		StringView sv1("foo");
+		StringView sv2("foo");
+		ENSURE(sv1 == sv2);
+	}
+	{
+		StringView sv1("foo");
+		StringView sv2("bar");
+		ENSURE(sv1 != sv2);
+	}
+	{
+		StringView sv1("foo");
+		StringView sv2("bar");
+		ENSURE(sv1 < sv2);
+	}
+	{
+		StringView sv1("foo");
+		StringView sv2("fooo");
+		ENSURE(sv1 < sv2);
+	}
+	memory_globals::shutdown();
+}
+
+
+
+int main()
+{
+	test_memory();
+	test_string_view();
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
