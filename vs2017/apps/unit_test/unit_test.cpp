@@ -6,6 +6,7 @@
 #include "core/memory/globals.h"
 #include "core/error/error.inl"
 #include "core/strings/string_view.inl"
+#include "core/strings/string_id.h"
 
 
 using namespace crown;
@@ -45,6 +46,36 @@ static void test_memory()
 	memory_globals::shutdown();
 }
 
+static void test_string_id()
+{
+	memory_globals::init();
+
+	{
+		StringId32 a("murmur32");
+		ENSURE(a._id == 0x7c2365dbu);
+
+		StringId32 b("murmur32", 8);
+		ENSURE(b._id == 0x7c2365dbu);
+
+		char str[9];
+		a.to_string(str, sizeof(str));
+		ENSURE(strcmp(str, "7c2365db") == 0);
+	}
+	{
+		// 任意一个字符串都会返回一个固有_id
+		StringId64 a("murmur64");
+		ENSURE(a._id == 0x90631502d1a3432bu);
+		StringId64 b("murmur64", 8);
+		ENSURE(b._id == 0x90631502d1a3432bu);
+		char str[17];
+		a.to_string(str, sizeof(str));
+		ENSURE(strcmp(str, "90631502d1a3432b"));
+	}
+
+
+	memory_globals::shutdown();
+
+}
 
 static void test_string_view()
 {
@@ -85,6 +116,7 @@ int main()
 {
 	test_memory();
 	test_string_view();
+	test_string_id();
 	return 0;
 }
 
