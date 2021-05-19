@@ -24,8 +24,7 @@ void crown::StringId32::hash(const char * str, u32 len)
 void crown::StringId32::parse(const char * str)
 {
 	CE_ENSURE(NULL != str);
-	// 把字符串转换成8个16进制数赋值给_id
-	// 一个16进制数占 4 bit,8个16进制数占32bit。刚好一个int_32。
+	// 取8个字符转换成16进制数表示的整型变量。
 	int num = sscanf(str, "%8x", &_id);
 	CE_ENSURE(num == 1);
 	CE_UNUSED(num);

@@ -129,12 +129,23 @@ static void test_string_view()
 }
 
 
-
 int main()
 {
+	//char testhere[6] = { 0x31,0x38,0x34,0x32,0x36,0x33 };
+	char testhere[8] = { '1','8','4','2','6','3','1','8' };
+	unsigned int a[3];
+	unsigned long long r;
+	int result = 0;
+	result = sscanf_s(testhere, "%2x%2x%2x", &a[0], &a[1], &a[2]);
+	result =  sscanf_s(testhere, "%8x", &r);
+	std::cout << a[0] << std::endl;
+	std::cout << a[1] << std::endl;
+	std::cout << a[2] << std::endl;
+
 	test_memory();
 	test_string_view();
 	test_string_id();
+	system("pause");
 	return 0;
 }
 

@@ -1,5 +1,51 @@
 ## MyCrown notes
 
+### 2021-05-19
+
+sscanf函数
+对输入字符串做格式化输出；另一个相似函数：scanf，输入源是控制台。
+
+```
+1,例如："184263"字符串最为输入，把改字符串转换成16进制数组18，42，63
+{
+	//char testhere[6] = { 0x31,0x38,0x34,0x32,0x36,0x33 };//ascii码
+	char testhere[6] = { '1','8','4','2','6','3' };
+	unsigned int a[3];
+	int result = 0;
+	result =  sscanf_s(testhere, "%2x%2x%2x", &a[0], &a[1], &a[2]);
+}
+上述sscanf参数：取两个字符转换成16进制数给a[0],a[1],a[2]
+输出:
+	a[0] == 24
+	a[1] == 66
+	a[2] == 99
+```
+
+```
+2,修改代码如下：
+{
+	char testhere[8] = { '1','8','4','2','6','3','1','8' };
+	unsigned long long r;
+	int result = 0;
+	result =  sscanf_s(testhere, "%8x", &r);
+	std::cout << a[0] << std::endl;
+}
+输出：
+	r == 3435973836
+
+```
+
+```
+3,修改testhere的长度
+{
+	char testhere[9] = { '1','8','4','2','6','3','1','8','9' };
+}
+输出：
+	a[0] == 3435973836
+```
+
+### 说明 sscanf_s(testhere, "%8x", &r) 是读取8个字符转换成16进制数。
+
 
 
 ### 2021-05-11
