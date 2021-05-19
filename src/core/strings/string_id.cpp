@@ -24,6 +24,8 @@ void crown::StringId32::hash(const char * str, u32 len)
 void crown::StringId32::parse(const char * str)
 {
 	CE_ENSURE(NULL != str);
+	// 把字符串转换成8个16进制数赋值给_id
+	// 一个16进制数占 4 bit,8个16进制数占32bit。刚好一个int_32。
 	int num = sscanf(str, "%8x", &_id);
 	CE_ENSURE(num == 1);
 	CE_UNUSED(num);
@@ -31,6 +33,7 @@ void crown::StringId32::parse(const char * str)
 
 const char * crown::StringId32::to_string(char * buf, u32 len) const
 {
+	// .8 表示精度，即取字符串前8个字符。x表示以16进制数写入buf
 	snprintf(buf, len, "%.8x", _id);
 	return buf;
 }

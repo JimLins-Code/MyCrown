@@ -12,8 +12,8 @@
 	#define CROWN_DEBUG 0
 #endif // CROWN_DEBUG
 
-#ifndef CROWN_DEVELOPEMENT
-	#define CROWN_DEVELOPEMENT 0
+#ifndef CROWN_DEVELOPMENT
+	#define CROWN_DEVELOPMENT 0
 #endif
 
 namespace crown

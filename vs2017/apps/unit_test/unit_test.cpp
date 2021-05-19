@@ -7,6 +7,7 @@
 #include "core/error/error.inl"
 #include "core/strings/string_view.inl"
 #include "core/strings/string_id.h"
+#include "core/strings/string_id.inl"
 
 
 using namespace crown;
@@ -69,9 +70,26 @@ static void test_string_id()
 		ENSURE(b._id == 0x90631502d1a3432bu);
 		char str[17];
 		a.to_string(str, sizeof(str));
-		ENSURE(strcmp(str, "90631502d1a3432b"));
+		ENSURE(strcmp(str, "90631502d1a3432b") == 0);
 	}
 
+	{
+		StringId32 id(0x2dd65fa6u);
+		char str[9];
+		id.to_string(str, sizeof(str));
+		StringId32 parsed;
+		parsed.parse(str);
+		ENSURE(id == parsed);
+	}
+
+	{
+		StringId64 id(0xa73491922dd65fa6u);
+		char str[17];
+		id.to_string(str, strlen32(str));
+		StringId64 parsed;
+		parsed.parse(str);
+		ENSURE(id == parsed);
+	}
 
 	memory_globals::shutdown();
 
