@@ -43,6 +43,9 @@
     <Filter Include="Source Files\src\core\memory">
       <UniqueIdentifier>{49155636-408e-46cf-b2fd-dfba87760cf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src\core\thread">
+      <UniqueIdentifier>{64ea08b6-e160-437f-b7df-0076c32196f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\strings\string_id.cpp">
@@ -56,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\core\memory\globals.cpp">
       <Filter>Source Files\src\core\memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\thread\thread.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +96,15 @@
       <Filter>Header Files\src\core\memory</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\functional.h">
+      <Filter>Header Files\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\thread\types.h">
+      <Filter>Source Files\src\core\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\thread\thread.h">
+      <Filter>Source Files\src\core\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\platform.h">
       <Filter>Header Files\src\core</Filter>
     </ClInclude>
   </ItemGroup>
