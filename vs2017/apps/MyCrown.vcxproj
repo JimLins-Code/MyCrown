@@ -163,6 +163,7 @@
     <ClCompile Include="..\..\src\core\memory\globals.cpp" />
     <ClCompile Include="..\..\src\core\murmur.cpp" />
     <ClCompile Include="..\..\src\core\strings\string_id.cpp" />
+    <ClCompile Include="..\..\src\core\thread\semaphore.cpp" />
     <ClCompile Include="..\..\src\core\thread\thread.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,7 @@
     <ClInclude Include="..\..\src\core\strings\string_id.h" />
     <ClInclude Include="..\..\src\core\strings\string_view.h" />
     <ClInclude Include="..\..\src\core\strings\types.h" />
+    <ClInclude Include="..\..\src\core\thread\semaphore.h" />
     <ClInclude Include="..\..\src\core\thread\thread.h" />
     <ClInclude Include="..\..\src\core\thread\types.h" />
     <ClInclude Include="..\..\src\core\types.h" />

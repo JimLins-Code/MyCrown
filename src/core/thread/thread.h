@@ -3,7 +3,7 @@
  * Copyright (c) 2012-2030 @banlinhuo al.
  * License: https://github.com/dbartolini/crown/blob/master/LICENSE
  * Copy crown
- * memory globals.h
+ * thread thread.h
  *
  */
 #include "core/types.h"
@@ -22,7 +22,7 @@ namespace crown
 		Thread();
 		~Thread();
 
-		// delete 2 copy construct fucns;
+		// delete 2 copy construct fucns; because too many problems, make it sample~
 		Thread(const Thread&) = delete;
 
 		Thread& operator=(const Thread&) = delete;

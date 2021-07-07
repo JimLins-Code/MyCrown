@@ -31,6 +31,7 @@ namespace crown
 
 
 #define CE_UNUSED(x) do { (void)(x); } while (0)
+#define CE_STATIC_ASSERT(condition,...) static_assert(condition,"" # __VA_ARGS__)
 
 #if CROWN_COMPILER_GCC || CROWN_COMPILER_CLANG
 #define CE_LIKELY(X) __builtin_expect((c,1))
