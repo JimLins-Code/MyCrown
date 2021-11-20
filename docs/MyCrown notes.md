@@ -1,6 +1,37 @@
 ## MyCrown notes
 
+### 2021-11-20
 
+* 代码中通常会使用如下的宏来定义一个操作：
+
+  ```c++
+  #define ENSURE(condition)                                \
+  	do                                                   \
+  	{                                                    \
+  		if (!(condition))                                \
+  		{                                                \
+  			printf("Assertion failed: '%s' in %s:%d\n\n" \
+  				, #condition                             \
+  				, __FILE__                               \
+  				, __LINE__                               \
+  				);                                       \
+  			exit(EXIT_FAILURE);                          \
+  		}                                                \
+  	}                                                    \
+  	while (0)
+  ```
+
+  明明是一个操作，为什么要写成do...while(0)?
+
+  Google了一下do...while(0)，以下做一个记录：
+
+  http://www.spongeliu.com/415.html
+
+  [https://www.pixelstech.net/article/1390482950-do-%7B-%7D-while-%280%29-in-macros#:~:text=do%20%7B](https://www.pixelstech.net/article/1390482950-do-{-}-while-(0)-in-macros#:~:text=do {)
+
+  个人理解比较中一点是：
+
+  宏展开后，c/c++需要补充“;”作为结束符。这个结束符可能会导致if...else...宏展开有问题。
 
 ### 2021-05-24
 
@@ -26,7 +57,7 @@ sscanf函数
 对输入字符串做格式化输出；另一个相似函数：scanf，输入源是控制台。
 
 ```
-1,例如："184263"字符串最为输入，把改字符串转换成16进制数组18，42，63
+1,例如："184263"字符串做为输入，把该字符串转换成16进制数组18，42，63
 {
 	//char testhere[6] = { 0x31,0x38,0x34,0x32,0x36,0x33 };//ascii码
 	char testhere[6] = { '1','8','4','2','6','3' };

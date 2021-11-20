@@ -69,6 +69,9 @@
     <ClCompile Include="..\..\src\core\thread\semaphore.cpp">
       <Filter>Source Files\src\core\thread</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\thread\mutex.cpp">
+      <Filter>Source Files\src\core\thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\strings\dynamic_string.h">
@@ -114,6 +117,9 @@
       <Filter>Header Files\src\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\thread\semaphore.h">
+      <Filter>Header Files\src\core\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\thread\mutex.h">
       <Filter>Header Files\src\core\thread</Filter>
     </ClInclude>
   </ItemGroup>
