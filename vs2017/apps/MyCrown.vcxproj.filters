@@ -49,6 +49,12 @@
     <Filter Include="Source Files\src\core\thread">
       <UniqueIdentifier>{5a5e3ad4-b0c4-49fc-a95a-451b97b9ebeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src\core\containers">
+      <UniqueIdentifier>{f13aea08-0ab3-4566-adee-19fe1817b246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\core\containers">
+      <UniqueIdentifier>{63b17f5c-2169-46b7-afe6-b48925cc8bbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\strings\string_id.cpp">
@@ -121,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\core\thread\mutex.h">
       <Filter>Header Files\src\core\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\containers\array.inl">
+      <Filter>Header Files\src\core\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\containers\types.h">
+      <Filter>Header Files\src\core\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,22 @@
 ## MyCrown notes
 
+### 2021-11-25
+
+* Plain Old Data(POD)
+
+   https://stackoverflow.com/questions/4178175/what-are-aggregates-and-pods-and-how-why-are-they-special/7189821#7189821
+
+  * 保证编译后的数据内存结构保持C和C++一样。
+  * 基础数据类型。没有继承、静态变量、用户自定义构造函数、析构函数、虚函数等影响到整个数据结构的操作。
+
+  
+
+### 2021-11-24
+
+* .inl文件的使用意义（inline内联）
+
+  https://stackoverflow.com/questions/1208028/significance-of-a-inl-file-in-c/1208062
+
 ### 2021-11-20
 
 * 代码中通常会使用如下的宏来定义一个操作：
