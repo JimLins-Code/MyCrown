@@ -157,5 +157,8 @@
     <None Include="..\..\src\core\functional.inl">
       <Filter>Header Files\src\core</Filter>
     </None>
+    <None Include="..\..\src\core\containers\vector.inl">
+      <Filter>Header Files\src\core\containers</Filter>
+    </None>
   </ItemGroup>
 </Project>

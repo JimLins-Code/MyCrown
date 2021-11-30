@@ -65,19 +65,19 @@ namespace crown
 	calls constructors and destructors.
 	if your data is POD, use Array<T> instead.
 	*/
-	//template<typename T>
-	//struct Vector 
-	//{
-	//	ALLOCATOR_AWARE;
-	//	Allocator* _allocator;
-	//	u32 _capacity;
-	//	u32 _size;
-	//	T* _data;
-	//	Vector(Allocator& a);
-	//	Vector(const Vector<T>& other);
-	//	~Vector();
-	//	T& operator[](u32 index);
-	//	const T& operator[](u32 index)const;
-	//	const Vector<T>& operator=(const Vector<T>& other);
-	//};
+	template<typename T>
+	struct Vector
+	{
+		ALLOCATOR_AWARE;
+		Allocator* _allocator;
+		u32 _capacity;
+		u32 _size;
+		T* _data;
+		Vector(Allocator& a);
+		Vector(const Vector<T>& other);
+		~Vector();
+		T& operator[](u32 index);
+		const T& operator[](u32 index)const;
+		const Vector<T>& operator=(const Vector<T>& other);
+	};
 }// namespace crown

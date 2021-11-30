@@ -13,6 +13,20 @@
 
 namespace crown
 {
+
+	/*
+		notes:
+		sometimes, we need overide "operator=="
+		there is two ways:
+		¢Ù"operator==" is member of class. there will be like this: 
+			bool operator==(const Myclass& other) const{}
+			note that const to function
+		¢Ú"operator==" is global function. there will be like this:
+			bool operator==(const StringId32& a, const StringId32& b);
+			define const to function is not necessary
+			
+	*/
+
 	// StringId32
 	inline bool operator==(const StringId32& a, const StringId32& b)
 	{

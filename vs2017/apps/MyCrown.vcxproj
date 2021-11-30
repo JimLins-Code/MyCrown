@@ -188,6 +188,7 @@
     <ClInclude Include="..\..\src\core\types.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\core\containers\vector.inl" />
     <None Include="..\..\src\core\error\error.inl" />
     <None Include="..\..\src\core\functional.inl" />
     <None Include="..\..\src\core\memory\memory.inl" />
