@@ -109,8 +109,8 @@ namespace crown
 		template <typename T>
 		inline void reserve(Array<T>&a, u32 capacity)
 		{
-			if(capacity > a._capacity)
-				grow(a,capacity)
+			if (capacity > a._capacity)
+				grow(a, capacity);
 		}
 
 		template <typename T>
@@ -119,7 +119,7 @@ namespace crown
 			if (a._capacity == capacity)
 				return;
 			if (capacity < a._size)
-				resize(a,capacity)
+				resize(a, capacity);
 			if (capacity > 0)
 			{
 				T* tmp = a._data;
@@ -148,7 +148,7 @@ namespace crown
 		template <typename T>
 		inline u32 push_back(Array<T>&a, const T& item)
 		{
-			if (a._capacity == a.size)
+			if (a._capacity == a._size)
 				grow(a, 0);
 			memcpy(&a._data[a._size], &item, sizeof(T));
 			return a._size++;
@@ -166,7 +166,7 @@ namespace crown
 		{
 			if (a._capacity <= a._size +count)
 				grow(a, a._size + count);
-			memcpy(&a._data[a.size], items, sizeof(T)*count);
+			memcpy(&a._data[a._size], items, sizeof(T)*count);
 			a._size += count;
 			return a._size;
 		}
@@ -234,7 +234,7 @@ namespace crown
 
 	template <typename T>
 	inline Array<T>::Array(Allocator& a)
-		:_allocator(a)
+		:_allocator(&a)
 		, _capacity(0)
 		, _size(0)
 		, _data(NULL)

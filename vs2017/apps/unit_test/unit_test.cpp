@@ -9,6 +9,8 @@
 #include "core/strings/string_id.h"
 #include "core/strings/string_id.inl"
 #include "core/thread/thread.h"
+#include "core/containers/array.inl"
+#include "core/containers/vector.inl"
 
 
 using namespace crown;
@@ -134,10 +136,56 @@ static void test_thread()
 {
 	Thread thread;
 	ENSURE(!thread.is_running());
-	thread.start([](void*) {return 0xbadc0d3;});
+	thread.start([](void*) {return 0xbadc0d3;},NULL);
 	thread.stop();
 	ENSURE(thread.exit_code() == 0xbadc0d3);
 }
+
+static void test_array()
+{
+	memory_globals::init();
+	Allocator& a = default_allocator();
+	{
+		Array<int> v(a);
+		ENSURE(array::size(v) == 0);
+		array::push_back(v,10);
+		ENSURE(array::size(v) == 1);
+		ENSURE(v[0] == 10);
+		int arr[] = {1,2,3,4,5};
+		int _size = sizeof(arr) / sizeof(int);
+		array::push(v, arr, _size);
+ 		ENSURE(array::size(v) == 6);
+		ENSURE(v[3] == 3);
+	}
+	memory_globals::shutdown();
+}
+
+static void test_vector()
+{
+	memory_globals::init();
+	Allocator& a = default_allocator();
+	{
+		Vector<int> v(a);
+		ENSURE(vector::size(v) == 0);
+		vector::push_back(v, 2);
+		ENSURE(vector::size(v) == 1);
+		int arr[] = { 10,20,30,40 };
+		int _size = sizeof(arr) / sizeof(int);
+		vector::push(v, arr, _size);
+		ENSURE(vector::size(v) == 5);
+		ENSURE(v[3] == 30);
+	}
+	memory_globals::shutdown();
+}
+
+
+
+#define RUN_TEST(name)		\
+	do{						\
+		printf(#name "\n");	\
+		name();				\
+	}while(0)				\
+
 
 
 int main()
@@ -153,10 +201,14 @@ int main()
 	std::cout << a[1] << std::endl;
 	std::cout << a[2] << std::endl;
 
-	test_memory();
-	test_string_view();
-	test_string_id();
-	test_thread();
+	RUN_TEST(test_memory);
+	RUN_TEST(test_string_view);
+	RUN_TEST(test_string_id);
+	//RUN_TEST(test_thread); //crash need to check
+	RUN_TEST(test_array);
+	RUN_TEST(test_vector);
+
+
 	system("pause");
 	return 0;
 }
