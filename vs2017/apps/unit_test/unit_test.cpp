@@ -131,14 +131,29 @@ static void test_string_view()
 	memory_globals::shutdown();
 }
 
+u32 func(void* data)
+{
+	for (u32 i = 0; i < 100; i++)
+	{
+		printf("%d\n", i);
+	}
+	return 0xdc;
+}
+
 
 static void test_thread()
 {
 	Thread thread;
 	ENSURE(!thread.is_running());
-	thread.start([](void*) {return 0xbadc0d3;},NULL);
+	int data = 100;
+	ThreadFunction func_ = (ThreadFunction)(func);
+	thread.start(func_, &data);
 	thread.stop();
-	ENSURE(thread.exit_code() == 0xbadc0d3);
+
+	Thread thread1;
+	thread1.start([](void*) {return 0xdc; }, NULL);
+	thread1.stop();
+	ENSURE(thread.exit_code() == 0xdc);
 }
 
 static void test_array()
@@ -204,7 +219,7 @@ int main()
 	RUN_TEST(test_memory);
 	RUN_TEST(test_string_view);
 	RUN_TEST(test_string_id);
-	//RUN_TEST(test_thread); //crash need to check
+	RUN_TEST(test_thread); //crash need to check
 	RUN_TEST(test_array);
 	RUN_TEST(test_vector);
 

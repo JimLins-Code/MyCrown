@@ -70,7 +70,7 @@ namespace crown
 		_priv->count += count;
 		pthread_mutex_unlock(&_priv->mutex);
 #elif CROWN_PLATFORM_WINDOWS
-		BOOL err = ReleaseSemaphore(&_priv->handle,count,NULL);
+		BOOL err = ReleaseSemaphore(_priv->handle,count,NULL);
 		CE_ASSERT(err != 0, "ReleaseSemaphore: GetLastError = %d", GetLastError());
 		CE_UNUSED(err);
 #endif

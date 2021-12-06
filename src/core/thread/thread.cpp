@@ -94,7 +94,7 @@ namespace crown {
 #endif
 		_priv->_is_running = true;
 		_priv->_sem.wait();
-
+		CE_ASSERT(_priv->_is_running == false);
 	}
 
 	void Thread::stop()
