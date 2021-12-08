@@ -80,4 +80,30 @@ namespace crown
 		const T& operator[](u32 index)const;
 		const Vector<T>& operator=(const Vector<T>& other);
 	};
+
+
+	template<typename TKey,typename TValue, typename Hash = hash<TKey>,typename KeyEqual = equal_to<TKey>>
+	struct HashMap
+	{
+		ALLOCATOR_AWARE;
+		typedef PAIR(TKey, TValue) Entry;
+		struct Index
+		{
+			u32 hash;
+			u32 index;
+		};
+		Allocator* _allocator;
+		u32 _capacity;
+		u32 _size;
+		u32 _mash;
+		Index* _index;
+		Entry* _data;
+		char* _buffer;
+
+		HashMap(Allocator& a);
+		HashMap(const HashMap& other);
+		~HashMap();
+		HashMap<TKey, TValue, Hash, KeyEqual>& operator=(const HashMap<TKey, TValue, Hash, KeyEqual>& other);
+	};
+
 }// namespace crown
