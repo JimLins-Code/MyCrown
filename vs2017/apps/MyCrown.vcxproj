@@ -166,6 +166,7 @@
     <ClCompile Include="..\..\src\core\thread\mutex.cpp" />
     <ClCompile Include="..\..\src\core\thread\semaphore.cpp" />
     <ClCompile Include="..\..\src\core\thread\thread.cpp" />
+    <ClCompile Include="..\..\src\device\log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\containers\array.inl" />
@@ -186,8 +187,10 @@
     <ClInclude Include="..\..\src\core\thread\thread.h" />
     <ClInclude Include="..\..\src\core\thread\types.h" />
     <ClInclude Include="..\..\src\core\types.h" />
+    <ClInclude Include="..\..\src\device\log.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\core\containers\hash_map.inl" />
     <None Include="..\..\src\core\containers\vector.inl" />
     <None Include="..\..\src\core\error\error.inl" />
     <None Include="..\..\src\core\functional.inl" />

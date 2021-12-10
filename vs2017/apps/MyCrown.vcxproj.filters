@@ -55,6 +55,12 @@
     <Filter Include="Source Files\src\core\containers">
       <UniqueIdentifier>{63b17f5c-2169-46b7-afe6-b48925cc8bbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src\device">
+      <UniqueIdentifier>{4e72974e-bacf-452e-8c30-9c7af6057f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\device">
+      <UniqueIdentifier>{7e6fa29e-d5a1-420c-978b-aa29d158744a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\strings\string_id.cpp">
@@ -77,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\core\thread\mutex.cpp">
       <Filter>Source Files\src\core\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\log.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +143,9 @@
     <ClInclude Include="..\..\src\core\containers\types.h">
       <Filter>Header Files\src\core\containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\device\log.h">
+      <Filter>Header Files\src\device</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
@@ -158,6 +170,9 @@
       <Filter>Header Files\src\core</Filter>
     </None>
     <None Include="..\..\src\core\containers\vector.inl">
+      <Filter>Header Files\src\core\containers</Filter>
+    </None>
+    <None Include="..\..\src\core\containers\hash_map.inl">
       <Filter>Header Files\src\core\containers</Filter>
     </None>
   </ItemGroup>

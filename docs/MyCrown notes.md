@@ -139,6 +139,18 @@ char* _free;	// 当前已经回收的内存指针位置，也就是说，在_fre
 
 ![image-20210511210049052](images/MyCrown%20notes.assert/image-20210511210049052.png)
 
+注：这里的设计遵循先入先出规则，如上代码：
+
+```
+a.deallocate(q);
+a.deallocate(p);
+q是后申请的内存，先执行deallocate操作，这样会直接跳过；
+当a.deallocate(p)的时候,直接会把所有的内存标记为free；
+所以使用内存的
+```
+
+
+
 ### 2021-04-29
 
 ```

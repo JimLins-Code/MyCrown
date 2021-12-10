@@ -86,7 +86,7 @@ namespace crown
 	struct HashMap
 	{
 		ALLOCATOR_AWARE;
-		typedef PAIR(TKey, TValue) Entry;
+		//typedef PAIR(TKey, TValue) Entry;
 		struct Index
 		{
 			u32 hash;
@@ -95,9 +95,9 @@ namespace crown
 		Allocator* _allocator;
 		u32 _capacity;
 		u32 _size;
-		u32 _mash;
+		u32 _mask;
 		Index* _index;
-		Entry* _data;
+		//Entry* _data;
 		char* _buffer;
 
 		HashMap(Allocator& a);

@@ -113,6 +113,7 @@ namespace crown {
 		CloseHandle(_priv->handle);
 		_priv->handle = INVALID_HANDLE_VALUE;
 #endif
+		_priv->_is_running = false;
 	}
 
 	bool Thread::is_running()

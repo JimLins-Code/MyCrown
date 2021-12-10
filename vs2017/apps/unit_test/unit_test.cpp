@@ -40,8 +40,8 @@ static void test_memory()
 	ENSURE(a.allocated_size(p) >= 32);
 	void* q = a.allocate(64);
 	ENSURE(a.allocated_size(q) >= 64);
-	a.deallocate(q);
 	a.deallocate(p);
+	//a.deallocate(q);
 
 	void* v = a.allocate(128);
 	ENSURE(a.allocated_size(v) >= 128);
@@ -151,9 +151,10 @@ static void test_thread()
 	thread.stop();
 
 	Thread thread1;
-	thread1.start([](void*) {return 0xdc; }, NULL);
+	ENSURE(!thread1.is_running());
+	thread1.start([](void*) {return 0xbadc0d3; }, NULL);
 	thread1.stop();
-	ENSURE(thread.exit_code() == 0xdc);
+	ENSURE(thread1.exit_code() == 0xbadc0d3);
 }
 
 static void test_array()
