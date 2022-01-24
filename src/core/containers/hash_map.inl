@@ -4,6 +4,12 @@
 #include "core/memory/memory.inl"
 #include <string.h>// memcpy
 
+
+/*
+https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
+Robin Hood hash算法，是一种基于开放寻址的hash算法的变体。相对于std的标准链表形式，提高了空间利用率，也提高了查找效率。
+*/
+
 namespace crown
 {
 	// Functions to manipulate HashMap.
@@ -159,6 +165,103 @@ namespace crown
 			return m._size >= m._capacity*0.9f;
 		}
 	}// namespace hash_map_internal
+
+	namespace hash_map
+	{
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		u32 size(const HashMap<TKey, TValue, Hash, KeyEqual>& m)
+		{
+			return m._size;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		u32 capacity(const HashMap<TKey, TValue, Hash, KeyEqual>&m)
+		{
+			return m._capacity;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		bool has(const HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key)
+		{
+			return hash_map_internal::find(m, key) != hash_map_internal::END_OF_LIST;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		const TValue& get(const HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key, const TValue& deffault)
+		{
+			const u32 i = hash_map_internal::find(m, key);
+			if (i == hash_map_internal::END_OF_LIST)
+				return deffault;
+			else
+				return m._data[i].second;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		void set(HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key, const TValue& value)
+		{
+			if (m._capacity == 0)
+				hash_map_internal::grow(m);
+			// find or make
+			const u3 i = hash_map_internal::find(m, key);
+			if (i == hash_map_internal::END_OF_LIST)
+			{
+				hash_map_internal::insert(m, hash_map_internal::key_hash<TKey, Hash>(key), key, value);
+				++m._size;
+			}
+			else
+			{
+				m._data[i].second = value;
+			}
+			if (hash_map_internal::full(m))
+			{
+				hash_map_internal::grow(m);
+			}
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		void remove(HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key)
+		{
+			const u32 i = hash_map_internal::find(m, key);
+			if (i == hash_map_internal::END_OF_LIST)
+				return;
+			m._data[i].~Pair();
+			m._index[i].index |= hash_map_internal::DELETED;
+			--m._size;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		void clear(HashMap<TKey, TValue, Hash, KeyEqual>&m)
+		{
+			for (u32 i = 0; i < m._capacity; ++i)
+			{
+				if (m._index[i].index == 0x0123abcd)
+					m._data[i].~Pair();
+				m._index[i].index = hash_map_internal::FREE;
+			}
+			m._size = 0;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		bool is_hole(const HashMap<TKey, TValue, Hash, KeyEqual>& m, const typename HashMap<TKey, TValue, Hash, KeyEqual>::Entry* entry)
+		{
+			const u32 ii == u32(entry - m._data);
+			const u32 index = m._index[ii].index;
+			return index == hash_map_internal::FREE || hash_map_internal::is_deleted(index);
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		inline const typename HashMap<TKey, TValue, Hash, KeyEqual>::Entry* begin(const HashMap<TKey, TValue, Hash, KeyEqual>&m)
+		{
+			return m._data;
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		inline const typename HashMap<TKey, TValue, Hash, KeyEqual>::Entry* end(const HashMap<TKey, TValue, Hash, KeyEqual>&m)
+		{
+			return m._data + m._capacity;
+		}
+
+	}
 
 	template<typename TKey,typename TValue, typename Hash, typename KeyEqual>
 	inline HashMap<TKey, TValue, Hash, KeyEqual>::HashMap(Allocator& a)

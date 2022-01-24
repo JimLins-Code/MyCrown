@@ -1,5 +1,15 @@
 ## MyCrown notes
 
+#### 2022-1-24
+
+关于hash算法。实现原理？
+
+https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
+
+Robin Hood hash,是一种基于开放寻址的hash算法的变体，相对std::unordermap（标准的链表实现方式），提高了空间利用率，也提高了查找效率。
+
+
+
 ### 2021-12-8
 
 hash_map实现
