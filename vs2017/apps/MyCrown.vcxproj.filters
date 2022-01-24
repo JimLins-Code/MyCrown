@@ -146,6 +146,9 @@
     <ClInclude Include="..\..\src\device\log.h">
       <Filter>Header Files\src\device</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\core\pair.h">
+      <Filter>Header Files\src\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
@@ -174,6 +177,9 @@
     </None>
     <None Include="..\..\src\core\containers\hash_map.inl">
       <Filter>Header Files\src\core\containers</Filter>
+    </None>
+    <None Include="..\..\src\core\pair.inl">
+      <Filter>Header Files\src\core</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -177,6 +177,7 @@
     <ClInclude Include="..\..\src\core\memory\globals.h" />
     <ClInclude Include="..\..\src\core\memory\types.h" />
     <ClInclude Include="..\..\src\core\murmur.h" />
+    <ClInclude Include="..\..\src\core\pair.h" />
     <ClInclude Include="..\..\src\core\platform.h" />
     <ClInclude Include="..\..\src\core\strings\dynamic_string.h" />
     <ClInclude Include="..\..\src\core\strings\string_id.h" />
@@ -196,6 +197,7 @@
     <None Include="..\..\src\core\functional.inl" />
     <None Include="..\..\src\core\memory\memory.inl" />
     <None Include="..\..\src\core\memory\temp_allocator.inl" />
+    <None Include="..\..\src\core\pair.inl" />
     <None Include="..\..\src\core\strings\string.inl" />
     <None Include="..\..\src\core\strings\string_id.inl" />
     <None Include="..\..\src\core\strings\string_view.inl" />

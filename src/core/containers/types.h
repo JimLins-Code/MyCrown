@@ -9,6 +9,7 @@
 
 #include "core/functional.h"
 #include "core/memory/types.h"
+#include "core/pair.h"
 #include "core/types.h"
 
 
@@ -16,6 +17,8 @@ namespace crown
 {
 	/*
 	Dynamic array of POD items.
+
+	POD¿ÌΩ‚£∫
 
 	POD is Plian Old Data
 
@@ -86,7 +89,7 @@ namespace crown
 	struct HashMap
 	{
 		ALLOCATOR_AWARE;
-		//typedef PAIR(TKey, TValue) Entry;
+		typedef PAIR(TKey, TValue) Entry;
 		struct Index
 		{
 			u32 hash;
@@ -97,7 +100,7 @@ namespace crown
 		u32 _size;
 		u32 _mask;
 		Index* _index;
-		//Entry* _data;
+		Entry* _data;
 		char* _buffer;
 
 		HashMap(Allocator& a);
