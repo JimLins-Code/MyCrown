@@ -29,7 +29,7 @@ namespace crown {
 	};
 
 #if CROWN_PLATFORM_POSIX
-	static void* thread _proc(void* arg)
+	static void* thread_proc(void* arg)
 	{
 		Thread* thread = (Thread*)arg;
 		thread->_priv->_sem.post();
@@ -94,7 +94,6 @@ namespace crown {
 #endif
 		_priv->_is_running = true;
 		_priv->_sem.wait();
-		CE_ASSERT(_priv->_is_running == false);
 	}
 
 	void Thread::stop()
