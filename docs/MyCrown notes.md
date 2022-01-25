@@ -12,9 +12,33 @@ Robin Hood hash,是一种基于开放寻址的hash算法的变体，相对std::u
 
 ### 2021-12-8
 
-hash_map实现
-
 https://www.interviewcake.com/concept/java/hash-map
+
+### Hash Table review:
+
+#### 优点：
+
+①快速查找。查询复杂度平均为O(1)
+
+②灵活使用key。也就是可以使用任意类型的类型作为key
+
+#### 缺点：
+
+①查询最大复杂度为O(n)。
+
+②存储无序。键值存储是无序的，插叙最大值、最小、范围值都需要遍历所有。
+
+③单方向查询。通过key查询value，只需要O(1)；然而通过value查询key，则需要O(n)。
+
+④缓存不友好。大部分的hash table实现都使用链表，导致数据并不连续。从计算机的寻址的角度来说cache并不友好。
+
+### HashMap review:
+
+①hashmap相对于table来说，cache是友好的。因为hashmap使用的是array来存储数据。
+
+②快速理解：hashmap 是array的变体。这里的变体指的是：array使用index作为"key"，而map使用的"key"可以是任意数据类型；最终hashmap通过hashfunc也是把"key"转换成了index。所以说hashmap是array的变体，多了一层hashfunc转换。
+
+![image-20220125114214484](images/MyCrown%20notes.assert/image-20220125114214484.png)
 
 
 
