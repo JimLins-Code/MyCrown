@@ -29,6 +29,14 @@ namespace crown
 	typedef uint64_t	u64;
 }// namespace crown
 
+template<typename T>
+inline void exchange(T& a, T& b)
+{
+	T c = a;
+	a = b;
+	b = c;
+}
+
 
 #define CE_UNUSED(x) do { (void)(x); } while (0)
 #define CE_STATIC_ASSERT(condition,...) static_assert(condition,"" # __VA_ARGS__)

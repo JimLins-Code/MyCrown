@@ -2,6 +2,7 @@
 #include "core/containers/types.h"
 #include "core/functional.inl"
 #include "core/memory/memory.inl"
+#include "core/pair.inl"
 #include <string.h>// memcpy
 
 
@@ -83,7 +84,7 @@ namespace crown
 		template<typename TKey,typename TValue, typename Hash,typename KeyEqual>
 		u32 find(const HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key)
 		{
-			if (m_size == 0)
+			if (m._size == 0)
 				return END_OF_LIST;
 			const u32 hash = key_hash<TKey, Hash>(key);
 			u32 hash_i = hash & m._mask;
@@ -147,6 +148,30 @@ namespace crown
 			nm._index = (Index*)memory::align_top(nm._buffer, alignof(Index));
 			nm._data = (Entry*)memory::align_top(nm._index + new_capacity, alignof(Entry));
 
+			// flag all elements as free
+			for (u32 i = 0;i< new_capacity;++i)
+			{
+				nm._index[i].hash = 0;
+				nm._index[i].index = 0;
+			}
+
+			nm._capacity = new_capacity;
+			nm._size = m._size;
+			nm._mask = new_capacity - 1;
+			
+			for (u32 i = 0;i<m._capacity;++i)
+			{
+				typename HashMap<TKey, TValue, Hash, KeyEqual>::Entry& e = m._data[i];
+				const u32 hash = m._index[i].hash;
+				const u32 index = m._index[i].index;
+				if (index != FREE && !is_deleted(index))
+					hash_map_internal::insert(nm, hash, e.first, e.second);
+			}
+
+			HashMap<TKey, TValue, Hash, KeyEqual>empty(*m._allocator);
+			m.~HashMap<TKey, TValue, Hash, KeyEqual>();
+			memcpy((void*)&m, (void*)&nm, sizeof(HashMap<TKey, TValue, Hash, KeyEqual>));
+			memcpy((void*)&nm, (void*)&empty, sizeof(HashMap<TKey, TValue, Hash, KeyEqual>));
 		}
 
 		template<typename TKey,typename TValue,typename Hash, typename KeyEqual>
@@ -197,12 +222,18 @@ namespace crown
 		}
 
 		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
+		TValue& get(HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key, const TValue& deffault)
+		{
+			return const_cast<TValue&>(hash_map::get((const HashMap<TKey, TValue, Hash, KeyEqual>&)m, key, deffault));
+		}
+
+		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
 		void set(HashMap<TKey, TValue, Hash, KeyEqual>&m, const TKey& key, const TValue& value)
 		{
 			if (m._capacity == 0)
 				hash_map_internal::grow(m);
 			// find or make
-			const u3 i = hash_map_internal::find(m, key);
+			const u32 i = hash_map_internal::find(m, key);
 			if (i == hash_map_internal::END_OF_LIST)
 			{
 				hash_map_internal::insert(m, hash_map_internal::key_hash<TKey, Hash>(key), key, value);
@@ -244,7 +275,7 @@ namespace crown
 		template <typename TKey, typename TValue, typename Hash, typename KeyEqual>
 		bool is_hole(const HashMap<TKey, TValue, Hash, KeyEqual>& m, const typename HashMap<TKey, TValue, Hash, KeyEqual>::Entry* entry)
 		{
-			const u32 ii == u32(entry - m._data);
+			const u32 ii = u32(entry - m._data);
 			const u32 index = m._index[ii].index;
 			return index == hash_map_internal::FREE || hash_map_internal::is_deleted(index);
 		}
@@ -261,7 +292,7 @@ namespace crown
 			return m._data + m._capacity;
 		}
 
-	}
+	}// namespace hash_map
 
 	template<typename TKey,typename TValue, typename Hash, typename KeyEqual>
 	inline HashMap<TKey, TValue, Hash, KeyEqual>::HashMap(Allocator& a)
@@ -299,13 +330,52 @@ namespace crown
 			for (u32 i=0;i<other._capacity;++i)
 			{
 				const u32 index = other._index[i].index;
-// 				if (index != hash_map_internal::FREE && !hash_map_internal::is_deleted(index))
-// 					new (&_data[i]) Entry(other._data[i]);
+				if (index != hash_map_internal::FREE && !hash_map_internal::is_deleted(index))
+					new (&_data[i]) Entry(other._data[i]);
 			}
 		}
 	}
 	template<typename TKey, typename TValue, typename Hash, typename KeyEqual>
 	inline HashMap<TKey, TValue, Hash, KeyEqual>::~HashMap()
 	{
+		for (u32 i = 0; i < _capacity; ++i)
+		{
+			if (_index[i].index == 0x0123abcd)
+				_data[i].~Pair();
+		}
+		_allocator->deallocate(_buffer);
 	}
+
+	template<typename TKey, typename TValue, typename Hash, typename KeyEqual>
+	HashMap<TKey, TValue, Hash, KeyEqual>& HashMap<TKey, TValue, Hash, KeyEqual>::operator=(const HashMap<TKey, TValue, Hash, KeyEqual>&other)
+	{
+		_capacity = other._capacity;
+		_size = other._size;
+		_mask = other._mask;
+		if (other._capacity > 0)
+		{
+			_allocator->deallocate(_buffer);
+			const u32 size = other._capacity*(sizeof(Index) + sizeof(Entry)) + alignof(Index) + alignof(Entry);
+			_buffer = (char*)_allocator->allocate(size);
+			_index = (Index*)memory::align_top(_buffer, alignof(Index));
+			_data = (Entry*)memory::align_top(_index + _capacity, alignof(Entry));
+
+			memcpy(_index, other._index, sizeof(Index)*other._capacity);
+			for (u32 i = 0; i < other._capacity; ++i)
+			{
+				const u32 index = other._index[i].index;
+				if (index != hash_map_internal::FREE && !hash_map_internal::is_deleted(index))
+				{
+					new(&_data[i]) Entry(*_allocator);
+					_data[i] = other._data[i];
+				}
+			}
+		}
+		return *this;
+	}
+
+#define HASH_MAP_SKIP_HOLE(m, cur) \
+	if (hash_map::is_hole(m, cur)) \
+		continue
+
 }// namespace crown
