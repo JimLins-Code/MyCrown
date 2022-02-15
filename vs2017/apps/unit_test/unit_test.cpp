@@ -11,6 +11,7 @@
 #include "core/thread/thread.h"
 #include "core/containers/array.inl"
 #include "core/containers/vector.inl"
+#include "core/containers/hash_map.inl"
 
 
 using namespace crown;
@@ -41,7 +42,7 @@ static void test_memory()
 	void* q = a.allocate(64);
 	ENSURE(a.allocated_size(q) >= 64);
 	a.deallocate(p);
-	//a.deallocate(q);
+	a.deallocate(q);
 
 	void* v = a.allocate(128);
 	ENSURE(a.allocated_size(v) >= 128);
@@ -133,10 +134,10 @@ static void test_string_view()
 
 u32 func(void* data)
 {
-	for (u32 i = 0; i < 100; i++)
-	{
-		printf("%d\n", i);
-	}
+// 	for (u32 i = 0; i < 100; i++)
+// 	{
+// 		printf("%d\n", i);
+// 	}
 	return 0xdc;
 }
 
@@ -195,6 +196,76 @@ static void test_vector()
 }
 
 
+static void test_hash_map()
+{
+	memory_globals::init();
+	Allocator& a = default_allocator();
+	{
+		HashMap<s32, s32>m(a);
+		ENSURE(hash_map::size(m) == 0);
+		ENSURE(hash_map::get(m, 0, 42) == 42);
+		ENSURE(!hash_map::has(m, 10));
+		for (s32 i = 0; i < 100; i++)
+			hash_map::set(m, i, i*i);
+		for (s32 i = 0; i < 100; i++)
+			ENSURE(hash_map::get(m, i, 0) == i * i);
+
+		hash_map::remove(m, 20);
+		ENSURE(!hash_map::has(m, 20));
+
+		hash_map::remove(m, 2000);
+		ENSURE(!hash_map::has(m, 2000));
+
+		hash_map::remove(m, 50);
+		ENSURE(!hash_map::has(m, 50));
+
+		hash_map::clear(m);
+		for (s32 i = 0;i<100;++i)
+		{
+			ENSURE(!hash_map::has(m, i));
+		}
+	}
+	{
+		std::cout << "test hash map set and remove" << std::endl;
+		HashMap<s32, s32>m(a);
+		hash_map_internal::grow(m);
+		ENSURE(hash_map::capacity(m) == 16);
+
+		hash_map::set(m, 0, 7);
+		hash_map::set(m, 1, 1);
+		for (s32 i = 2;i<150;++i)
+		{
+			hash_map::set(m, i, 2);
+			ENSURE(hash_map::has(m, 0));
+			ENSURE(hash_map::has(m, 1));
+			ENSURE(hash_map::has(m, i));
+			hash_map::remove(m, i);
+		}
+		for (auto it = hash_map::begin(m); it != hash_map::end(m); it++)
+		{
+			std::cout << it->second << std::endl;
+		}
+	}
+	{
+		std::cout << "test copy " << std::endl;
+		HashMap<s32, s32> ma(a);
+		HashMap<s32, s32> mb(a);
+		hash_map::set(ma,0, 0);
+		// now,capacity is 16. so print 16 number which not sure.
+		for (auto it = hash_map::begin(ma); it != hash_map::end(ma); it++)
+		{
+			std::cout << it->second << std::endl;
+		}
+		std::cout << "after copy null" << std::endl;
+		ma = mb;
+		// now capacity is 0. so print 0 lines.
+		for (auto it = hash_map::begin(ma);it!=hash_map::end(ma);it++)
+		{
+			std::cout << it->second << std::endl;
+		}
+	}
+}
+
 
 #define RUN_TEST(name)		\
 	do{						\
@@ -223,6 +294,7 @@ int main()
 	RUN_TEST(test_thread); //crash need to check
 	RUN_TEST(test_array);
 	RUN_TEST(test_vector);
+	RUN_TEST(test_hash_map);
 
 
 	system("pause");

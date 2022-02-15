@@ -120,7 +120,8 @@ namespace crown
 				{
 					if (is_deleted(m._index[hash_i].index))
 						goto INSERT_AND_RETURN;
-					exchange(hash, m._index[hash_i].index);
+					// 
+					exchange(hash, m._index[hash_i].hash);
 					m._index[hash_i].index = 0x0123abcd;
 					swap(new_item, m._data[hash_i]);
 					dist = existing_elem_probe_dist;
@@ -152,7 +153,7 @@ namespace crown
 			for (u32 i = 0;i< new_capacity;++i)
 			{
 				nm._index[i].hash = 0;
-				nm._index[i].index = 0;
+				nm._index[i].index = FREE;
 			}
 
 			nm._capacity = new_capacity;

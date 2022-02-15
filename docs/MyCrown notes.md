@@ -2,7 +2,7 @@
 
 #### 2022-1-24
 
-关于hash算法。实现原理？
+crown robin hood hash
 
 https://www.sebastiansylvan.com/post/robin-hood-hashing-should-be-your-default-hash-table-implementation/
 
