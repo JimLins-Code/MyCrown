@@ -1,5 +1,39 @@
 ## MyCrown notes
 
+### Crown结构（置顶）
+
+ * memory
+
+   HeapAllocator 
+
+   ScratchAllocator 
+
+ * containers struct
+
+   * HashMap
+
+   * Array
+
+   * Vector
+
+   * DynamicString
+
+     implement by Array
+
+ * threads
+
+ * filesystem
+
+   * os
+
+     open/close files, create/delete directory, open/read files
+
+	* error
+
+
+
+
+
 #### 2022-1-24
 
 crown robin hood hash

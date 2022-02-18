@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include "core/memory/allocator.h"
+#include "core/memory/temp_allocator.inl"
 #include "core/memory/globals.h"
 #include "core/error/error.inl"
 #include "core/strings/string_view.inl"
+#include "core/strings/dynamic_string.h"
 #include "core/strings/string_id.h"
 #include "core/strings/string_id.inl"
 #include "core/thread/thread.h"
@@ -98,6 +100,23 @@ static void test_string_id()
 	memory_globals::shutdown();
 
 }
+
+static void test_dynamic_string()
+{
+	memory_globals::init();
+	{
+		TempAllocator1024 ta;
+		DynamicString str(ta);
+		ENSURE(str.empty());
+		str.set("murmur32", 8);
+		ENSURE(str.length() == 8);
+		const StringId32 id = str.to_string_id();
+		ENSURE(id._id == 0x7c2365dbu);
+	}
+
+	memory_globals::shutdown();
+}
+
 
 static void test_string_view()
 {
