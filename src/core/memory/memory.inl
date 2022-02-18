@@ -10,6 +10,7 @@
 #include "core/error/error.inl"
 #include "core/memory/allocator.h"
 #include "core/memory/types.h"
+#include <new>
 
 
 namespace crown

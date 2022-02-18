@@ -27,7 +27,7 @@ namespace crown
 		TempAllocator(Allocator &backing = default_scratch_allocator());
 		virtual ~TempAllocator();
 		virtual void* allocate(u32 size, u32 align = DEFAULT_ALIGN);
-		virtual void* deallocate(void*){}
+		virtual void deallocate(void*){}
 		virtual u32 allocated_size(const void*) { return SIZE_NOT_TRACKED; }
 		virtual u32 total_allocated() { return SIZE_NOT_TRACKED; }
 	};
@@ -58,7 +58,7 @@ namespace crown
 		while (p)
 		{
 			void* next = *(void**)p;
-			_backing->deallocate(p);
+			_backing.deallocate(p);
 			p = next;
 		}
 	}

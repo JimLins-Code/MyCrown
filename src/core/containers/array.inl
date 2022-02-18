@@ -7,8 +7,10 @@
  */
 
 #include "core/containers/types.h"
-#include "core/error/error.h"
+#include "core/error/error.inl"
 #include "core/memory/allocator.h"
+
+#include <string.h>
 
 namespace crown
 {
@@ -250,7 +252,7 @@ namespace crown
 	{
 		const u32 size = other._size;
 		array::resize(*this, size);
-		memcpy(_data, other, _data, sizeof(T)*size);
+		memcpy(_data, other._data, sizeof(T)*size);
 	}
 
 	template <typename T>

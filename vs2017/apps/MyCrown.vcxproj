@@ -160,8 +160,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\error\error.cpp" />
+    <ClCompile Include="..\..\src\core\guid.cpp" />
     <ClCompile Include="..\..\src\core\memory\globals.cpp" />
     <ClCompile Include="..\..\src\core\murmur.cpp" />
+    <ClCompile Include="..\..\src\core\os.cpp" />
+    <ClCompile Include="..\..\src\core\strings\dynamic_string.cpp" />
     <ClCompile Include="..\..\src\core\strings\string_id.cpp" />
     <ClCompile Include="..\..\src\core\thread\mutex.cpp" />
     <ClCompile Include="..\..\src\core\thread\semaphore.cpp" />
@@ -173,10 +176,12 @@
     <ClInclude Include="..\..\src\core\containers\types.h" />
     <ClInclude Include="..\..\src\core\error\error.h" />
     <ClInclude Include="..\..\src\core\functional.h" />
+    <ClInclude Include="..\..\src\core\guid.h" />
     <ClInclude Include="..\..\src\core\memory\allocator.h" />
     <ClInclude Include="..\..\src\core\memory\globals.h" />
     <ClInclude Include="..\..\src\core\memory\types.h" />
     <ClInclude Include="..\..\src\core\murmur.h" />
+    <ClInclude Include="..\..\src\core\os.h" />
     <ClInclude Include="..\..\src\core\pair.h" />
     <ClInclude Include="..\..\src\core\platform.h" />
     <ClInclude Include="..\..\src\core\strings\dynamic_string.h" />
@@ -195,9 +200,11 @@
     <None Include="..\..\src\core\containers\vector.inl" />
     <None Include="..\..\src\core\error\error.inl" />
     <None Include="..\..\src\core\functional.inl" />
+    <None Include="..\..\src\core\guid.inl" />
     <None Include="..\..\src\core\memory\memory.inl" />
     <None Include="..\..\src\core\memory\temp_allocator.inl" />
     <None Include="..\..\src\core\pair.inl" />
+    <None Include="..\..\src\core\strings\dynamic_string.inl" />
     <None Include="..\..\src\core\strings\string.inl" />
     <None Include="..\..\src\core\strings\string_id.inl" />
     <None Include="..\..\src\core\strings\string_view.inl" />

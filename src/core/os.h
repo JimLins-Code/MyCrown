@@ -34,7 +34,7 @@ namespace crown
 
 	// Result from os::delete_file() or os::delete_directory().
 	// @ingroup OS
-	struct DeleteRusult
+	struct DeleteResult
 	{
 		enum
 		{
@@ -67,6 +67,44 @@ namespace crown
 		};
 	};
 
+	namespace os
+	{
+		// suspends execution for @ms milliseconds.
+		void sleep(u32 ms);
 
+		// opens the library at @path
+		void* library_open(const char* path);
+
+		// closes a @library previously opened by library_open.
+		void library_close(void* library);
+
+		// returns a pointer to the symbol @name in the given @library.
+		void* library_symbol(void* library, const char* name);
+
+		// logs the message @msg.
+		void log(const char* msg);
+
+#if  CROWN_PLATFORM_POSIX
+		// returns information about @fd
+		void stat(Stat& info, int fd);
+#endif
+
+		void stat(Stat& info, const char* path);
+
+		DeleteResult delete_file(const char* path);
+
+		CreateResult create_directory(const char* path);
+
+		DeleteResult delete_directory(const char* path);
+
+		void list_files(const char* path, Vector<DynamicString>& files);
+
+		const char* getcwd(char* buf, u32 size);
+
+		const char* getenv(const char* name);
+
+		s32 access(const char* path, u32 flags);
+
+	}// namespace os
 
 }// namespace crown
