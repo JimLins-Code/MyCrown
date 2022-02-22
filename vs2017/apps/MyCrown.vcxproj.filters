@@ -84,9 +84,6 @@
     <ClCompile Include="..\..\src\core\thread\mutex.cpp">
       <Filter>Source Files\src\core\thread</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\device\log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\core\os.cpp">
       <Filter>Source Files\src\core</Filter>
     </ClCompile>
@@ -95,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\core\guid.cpp">
       <Filter>Source Files\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\device\log.cpp">
+      <Filter>Source Files\src\device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,9 +169,6 @@
     <None Include="..\..\src\core\strings\string.inl">
       <Filter>Header Files\src\core\strings</Filter>
     </None>
-    <None Include="..\..\src\core\strings\string_view.inl">
-      <Filter>Source Files\src\core\strings</Filter>
-    </None>
     <None Include="..\..\src\core\error\error.inl">
       <Filter>Header Files\src\core\error</Filter>
     </None>
@@ -201,6 +198,9 @@
     </None>
     <None Include="..\..\src\core\guid.inl">
       <Filter>Header Files\src\core</Filter>
+    </None>
+    <None Include="..\..\src\core\strings\string_view.inl">
+      <Filter>Header Files\src\core\strings</Filter>
     </None>
   </ItemGroup>
 </Project>

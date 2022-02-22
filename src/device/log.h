@@ -21,7 +21,7 @@ namespace crown
 	};
 	namespace log_internal
 	{
-		struct System 
+		struct System
 		{
 			const char* name;
 		};
@@ -31,3 +31,13 @@ namespace crown
 
 	}// namespace log_internal
 }// namespace crown
+
+
+#define vlogi(system,msg,va_list) crown::log_internal::vlogx(crown::LogSeverity::LOG_INFO,system,msg,va_list)
+#define vloge(system,msg,va_list) crown::log_internal::vlogx(crown::LogSeverity::LOG_ERROR,system,msg,va_list)
+#define vlogw(system,msg,va_list) crown::log_internal::vlogx(crown::LogSeverity::LOG_WARN,system,msg,va_list)
+#define logi(system,msg,...) crown::log_internal::logx(crown::LogSeverity::LOG_INFO,system,msg, ## __VA_ARGS__)
+#define loge(system,msg,...) crown::log_internal::logx(crown::LogSeverity::LOG_ERROR,system,msg, ## __VA_ARGS__)
+#define logw(system,msg,...) crown::log_internal::logx((crown::LogSeverity::LOG_WARN,system,msg, ## __VA_ARGS__)
+
+#define LOG_SYSTEM(ident,name) namespace {const crown::log_internal::System ident = {name};}

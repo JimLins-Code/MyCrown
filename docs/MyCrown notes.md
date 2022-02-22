@@ -30,7 +30,43 @@
 
 	* error
 
+### 2022-2-22
 
+ * TempAllocator
+
+   tempallocator是一个模板，使用默认的default_scratch_allocator作为内存分配器，用于程序中一些琐碎的内存的申请、释放；
+
+   比如中间临时申请一个字符串
+
+   ```c++
+   TempAllocator128 ta;
+   DynamicString str(ta);
+   str.set("test",4);
+   ```
+
+   ---
+
+   ## crown的内存设计思路就是：让开发者显示的知道每段使用的内存用来做什么、何时用、何时回收
+
+   ---
+
+   
+
+ * 常用分类
+
+   ```c++
+   	typedef TempAllocator<64>TempAllocator64;
+   	typedef TempAllocator<128>TempAllocator128;
+   	typedef TempAllocator<256>TempAllocator256;
+   	typedef TempAllocator<512>TempAllocator512;
+   	typedef TempAllocator<1024>TempAllocator1024;
+   	typedef TempAllocator<2048>TempAllocator2048;
+   	typedef TempAllocator<4096>TempAllocator4096;
+   ```
+
+ * 实现
+
+   参考temp_allocaor.inl
 
 
 

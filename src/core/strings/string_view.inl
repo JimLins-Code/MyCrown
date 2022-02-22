@@ -1,5 +1,8 @@
+#pragma  once
+
 #include "string_view.h"
 #include "core/strings/string.inl"
+#include <algorithm>
 
 namespace crown
 {

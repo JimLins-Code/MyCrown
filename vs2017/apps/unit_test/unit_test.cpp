@@ -8,6 +8,8 @@
 #include "core/error/error.inl"
 #include "core/strings/string_view.inl"
 #include "core/strings/dynamic_string.h"
+#include "core/strings/dynamic_string.inl"
+#include "core/guid.inl"
 #include "core/strings/string_id.h"
 #include "core/strings/string_id.inl"
 #include "core/thread/thread.h"
@@ -113,7 +115,93 @@ static void test_dynamic_string()
 		const StringId32 id = str.to_string_id();
 		ENSURE(id._id == 0x7c2365dbu);
 	}
-
+	{
+		TempAllocator1024 ta;
+		DynamicString str(ta);
+		str += "Test ";
+		str += "string. ";
+		ENSURE(strcmp(str.c_str(), "Test string. ") == 0);
+	}
+	{
+		TempAllocator1024 ta;
+		DynamicString str(ta);
+		str.set("   \tSushi\t   ",13);
+		str.ltrim();
+		ENSURE(strcmp(str.c_str(), "Sushi\t   ") == 0);
+	}
+	{
+		TempAllocator1024 ta;
+		DynamicString str(ta);
+		str.set("   \tSushi\t   ", 13);
+		str.rtrim();
+		ENSURE(strcmp(str.c_str(), "   \tSushi") == 0);
+	}
+	{
+		TempAllocator1024 ta;
+		DynamicString str(ta);
+		str.set("   \tSushi\t   ", 13);
+		str.trim();
+		ENSURE(strcmp(str.c_str(), "Sushi") == 0);
+	}
+	{
+		TempAllocator1024 ta;
+		DynamicString str(ta);
+		str.set("Hello everyone!", 15);
+		ENSURE(str.has_prefix("Hello"));
+		ENSURE(!str.has_prefix("Helloo"));
+		ENSURE(str.has_suffix("one!"));
+		ENSURE(!str.has_suffix("one"));
+		ENSURE(!str.has_prefix("Hello everyone!!!"));
+		ENSURE(!str.has_suffix("Hello everyone!!!"));		
+	}
+	{
+		Guid guid = guid::parse("dd733419-bbd0-4248-bc84-e0e8363d7165");
+		TempAllocator128 ta;
+		DynamicString str(ta);
+		str.from_guid(guid);
+		ENSURE(str.length() == 36);
+		ENSURE(strcmp(str.c_str(), "dd733419-bbd0-4248-bc84-e0e8363d7165") == 0);
+	}
+	{
+		StringId32 id = StringId32("test");
+		TempAllocator128 ta;
+		DynamicString str(ta);
+		str.from_string_id(id);
+		ENSURE(str.length() == 8);
+		ENSURE(strcmp(str.c_str(), "1812752e") == 0);
+	}
+	{
+		StringId64 id = StringId64("test");
+		TempAllocator128 ta;
+		DynamicString str(ta);
+		str.from_string_id(id);
+		ENSURE(str.length() == 16);
+		ENSURE(strcmp(str.c_str(), "2f4a8725618f4c63"));
+	}
+	{
+		TempAllocator128 ta;
+		DynamicString ds1(ta);
+		DynamicString ds2(ta);
+		ds1.set("foo", 3);
+		ds2.set("foo", 3);
+		ENSURE(ds1 == ds2);
+	}
+	{
+		TempAllocator128 ta;
+		DynamicString ds1(ta);
+		DynamicString ds2(ta);
+		ds1.set("foo", 3);
+		ds2.set("bar", 3);
+		ENSURE(ds1 != ds2);
+	}
+	{
+		TempAllocator128 ta;
+		DynamicString ds1(ta);
+		DynamicString ds2(ta);
+		ds1.set("bar", 3);
+		ds2.set("foo", 3);
+		ENSURE(ds1 < ds2);
+	}
 	memory_globals::shutdown();
 }
 
@@ -309,6 +397,7 @@ int main()
 
 	RUN_TEST(test_memory);
 	RUN_TEST(test_string_view);
+	RUN_TEST(test_dynamic_string);
 	RUN_TEST(test_string_id);
 	RUN_TEST(test_thread); //crash need to check
 	RUN_TEST(test_array);
