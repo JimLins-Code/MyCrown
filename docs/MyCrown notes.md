@@ -30,6 +30,36 @@
 
 	* error
 
+### 2022-4-12
+
+最近一直忙，没有时间更新笔记~
+
+今天总结下关于引擎的log系统如何实现的思路：
+
+* 定义宏接口方便调用
+  * 接口应该尽可能的简单，方便调用者快速写出调用。封装格式化log、使用不定参数解析va_list等，保证接口简单易用。
+  * 普遍性高，可理解为调用者可不用过多查看接口定义。
+* 定义log的等级，例如error、warning、info
+* 封装（这里不能讲是抽象）一层，保证api的平台无关性，即保证跨平台
+* 上传server统计支持（这是为了后续维护方便）
+
+crown的log设计简单总结下：
+
+```c++
+#define vlogi(system,msg,va_list) crown::log_internal::vlogx(crown::LogSeverity::LOG_INFO,system,msg,va_list)
+#define vloge(system,msg,va_list) crown::log_internal::vlogx(crown::LogSeverity::LOG_ERROR,system,msg,va_list)
+#define vlogw(system,msg,va_list) crown::log_internal::vlogx(crown::LogSeverity::LOG_WARN,system,msg,va_list)
+#define logi(system,msg,...) crown::log_internal::logx(crown::LogSeverity::LOG_INFO,system,msg, ## __VA_ARGS__)
+#define loge(system,msg,...) crown::log_internal::logx(crown::LogSeverity::LOG_ERROR,system,msg, ## __VA_ARGS__)
+#define logw(system,msg,...) crown::log_internal::logx(crown::LogSeverity::LOG_WARN,system,msg, ## __VA_ARGS__)
+
+1,接口尽可能简单，支持不定参数。可使用系统va_list，调用带v api。如vlogi;
+2,定义的log等级LogSeverity，设计的api自动处理LogSeverity；
+3,平台无关性设计：os层，os层处理平台相关的api调用。os只保证接收log层的char*参数。打印到输出流。
+```
+
+
+
 ### 2022-2-22
 
  * TempAllocator

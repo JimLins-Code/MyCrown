@@ -1,6 +1,5 @@
 // unit_test_memory.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
 #include "core/memory/allocator.h"
 #include "core/memory/temp_allocator.inl"
@@ -16,9 +15,14 @@
 #include "core/containers/array.inl"
 #include "core/containers/vector.inl"
 #include "core/containers/hash_map.inl"
+#include "device/log.h"
 
 
 using namespace crown;
+
+LOG_SYSTEM(MY_ERROR, "error")	// for test log api
+LOG_SYSTEM(MY_WARNING,"warning")
+LOG_SYSTEM(MY_INFO,"info")
 
 #define ENSURE(condition)                                \
 	do                                                   \
@@ -373,6 +377,89 @@ static void test_hash_map()
 	}
 }
 
+static void testLogApi()
+{
+	TempAllocator1024 ta;
+	DynamicString str(ta);
+	str += "ERROR happy day test loge api";
+	loge(MY_ERROR, str.c_str());
+
+	DynamicString str1(ta);
+	str1 += "INFO happy day test loge api";
+	logi(MY_INFO, str1.c_str());
+
+	DynamicString str2(ta);
+	str2 += "WARNING happy day test loge api";
+	logw(MY_WARNING, str2.c_str());
+}
+
+
+#include <ctime>
+static void testStdString()
+{
+	std::clock_t start = std::clock();
+	std::string str("ad3dkdjkjkdfskklnbm.eittlyyi.;lldj9");
+	std::string str1("ad3dkdjkjkdfskklnbm.eittlyyi.;lldj1");
+	u32 countEqual = 0;
+	for (u32 i =0;i<100000;i++)
+	{
+		if (str == str1)
+			countEqual += 1;
+	}
+	std::cout << "testStdString: " << countEqual << std::endl;
+	std::clock_t end = std::clock();
+	std::cout << "excute times: " << (double)(end - start) << "ms" << std::endl;
+}
+
+static void testDynamicString()
+{
+	std::clock_t start = std::clock();
+	TempAllocator128 ta;
+	DynamicString str(ta);
+	const char* c = "ad3dkdjkjkdfskklnbm.eittlyyi.;lldj9";
+	str.set(c, 35);
+
+	TempAllocator128 ta1;
+	DynamicString str1(ta1);
+	const char* c1 = "ad3dkdjkjkdfskklnbm.eittlyyi.;lldj1";
+	str1.set(c1, 35);
+	u32 countEqual = 0;
+	for (u32 i =0;i<100000;i++)
+	{
+		StringId32 id = str.to_string_id();
+		StringId32 id1 = str1.to_string_id();
+		if (id == id1)
+			countEqual += 1;	
+	}
+	std::cout << "testDynamicString: " << countEqual << std::endl;
+	std::clock_t end = std::clock();
+	std::cout << "excute times: " << (double)(end - start) << "ms" << std::endl;
+}
+#include <sstream>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+time_t t1;
+time_t t2;
+std::string istr;
+static void timeStart()
+{
+	time(&t1);
+}
+
+static void timeStop(const char* s)
+{
+	time(&t2);
+	istr += s;
+	istr += "\n";
+}
+
+static void saveTimeProfile()
+{
+	std::ofstream out("tx3StartTimeProfile.txt",std::fstream::out);
+	out << istr.c_str();
+}
+
 
 #define RUN_TEST(name)		\
 	do{						\
@@ -380,30 +467,45 @@ static void test_hash_map()
 		name();				\
 	}while(0)				\
 
-
+static bool exist(const std::string& name)
+{
+	std::ifstream infile(name);
+	return infile.good();
+}
 
 int main()
 {
 	//char testhere[6] = { 0x31,0x38,0x34,0x32,0x36,0x33 };
-	char testhere[8] = { '1','8','4','2','6','3','1','8' };
-	unsigned int a[3];
-	unsigned int r;
-	int result = 0;
-	result = sscanf_s(testhere, "%2x%2x%2x", &a[0], &a[1], &a[2]);
-	result =  sscanf_s(testhere, "%8x", &r);
-	std::cout << a[0] << std::endl;
-	std::cout << a[1] << std::endl;
-	std::cout << a[2] << std::endl;
+// 	char testhere[8] = { '1','8','4','2','6','3','1','8' };
+// 	unsigned int a[3];
+// 	unsigned int r;
+// 	int result = 0;
+// 	result = sscanf_s(testhere, "%2x%2x%2x", &a[0], &a[1], &a[2]);
+// 	result =  sscanf_s(testhere, "%8x", &r);
+// 	std::cout << a[0] << std::endl;
+// 	std::cout << a[1] << std::endl;
+// 	std::cout << a[2] << std::endl;
+// 
+	timeStart();
+ 	RUN_TEST(test_memory);
+ 	RUN_TEST(test_string_view);
+ 	RUN_TEST(test_dynamic_string);
+	timeStop("test_memory finished");
+	timeStart();
+ 	//RUN_TEST(test_string_id);
+ 	RUN_TEST(test_thread); //crash need to check
+ 	RUN_TEST(test_array);
+	timeStop("test_array finished");
+	timeStart();
+ 	RUN_TEST(test_vector);
+ 	RUN_TEST(test_hash_map);
 
-	RUN_TEST(test_memory);
-	RUN_TEST(test_string_view);
-	RUN_TEST(test_dynamic_string);
-	RUN_TEST(test_string_id);
-	RUN_TEST(test_thread); //crash need to check
-	RUN_TEST(test_array);
-	RUN_TEST(test_vector);
-	RUN_TEST(test_hash_map);
+	RUN_TEST(testStdString);
+	RUN_TEST(testDynamicString);
+	timeStop("main test finished");
 
+	//saveTimeProfile();
+	RUN_TEST(testLogApi);
 
 	system("pause");
 	return 0;

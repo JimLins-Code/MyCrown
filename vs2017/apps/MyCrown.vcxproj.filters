@@ -164,6 +164,9 @@
     <ClInclude Include="..\..\src\core\guid.h">
       <Filter>Header Files\src\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\core\strings\string_stream.h">
+      <Filter>Header Files\src\core\strings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
@@ -200,6 +203,9 @@
       <Filter>Header Files\src\core</Filter>
     </None>
     <None Include="..\..\src\core\strings\string_view.inl">
+      <Filter>Header Files\src\core\strings</Filter>
+    </None>
+    <None Include="..\..\src\core\strings\string_stream.inl">
       <Filter>Header Files\src\core\strings</Filter>
     </None>
   </ItemGroup>

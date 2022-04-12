@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2012-2021 Daniele Bartolini et al.
+ * Copyright (c) 2012-2030 @banlinhuo al.
  * License: https://github.com/dbartolini/crown/blob/master/LICENSE
+ * Copy crown
  */
-
 #pragma once
 
 #include "core/error/error.inl"
