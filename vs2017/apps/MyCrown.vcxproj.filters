@@ -61,6 +61,12 @@
     <Filter Include="Source Files\src\device">
       <UniqueIdentifier>{7e6fa29e-d5a1-420c-978b-aa29d158744a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\src\core\filesystem">
+      <UniqueIdentifier>{ec4c60a4-44f4-4c2f-af9e-f86d16beb505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\filesystem">
+      <UniqueIdentifier>{527a3683-e781-4e97-abb9-c7e3adfa18da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\core\strings\string_id.cpp">
@@ -95,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\device\log.cpp">
       <Filter>Source Files\src\device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\filesystem\filesystem_disk.cpp">
+      <Filter>Source Files\src\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\filesystem\path.cpp">
+      <Filter>Source Files\src\filesystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +179,24 @@
     <ClInclude Include="..\..\src\core\strings\string_stream.h">
       <Filter>Header Files\src\core\strings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\core\filesystem\types.h">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\filesystem\file.h">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\filesystem\filesystem.h">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\filesystem\reader_writer.h">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\filesystem\filesystem_disk.h">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\filesystem\path.h">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\src\core\strings\string.inl">
@@ -207,6 +237,12 @@
     </None>
     <None Include="..\..\src\core\strings\string_stream.inl">
       <Filter>Header Files\src\core\strings</Filter>
+    </None>
+    <None Include="..\..\src\core\filesystem\file_buffer.inl">
+      <Filter>Header Files\src\core\filesystem</Filter>
+    </None>
+    <None Include="..\..\src\core\filesystem\reader_writer.inl">
+      <Filter>Header Files\src\core\filesystem</Filter>
     </None>
   </ItemGroup>
 </Project>

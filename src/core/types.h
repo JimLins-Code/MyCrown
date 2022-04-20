@@ -38,22 +38,22 @@ inline void exchange(T& a, T& b)
 	b = c;
 }
 
-
+#define CE_NOOP(...) do { (void)0; } while (0)
 #define CE_UNUSED(x) do { (void)(x); } while (0)
 #define CE_STATIC_ASSERT(condition,...) static_assert(condition,"" # __VA_ARGS__)
 
 #if CROWN_COMPILER_GCC || CROWN_COMPILER_CLANG
-#define CE_LIKELY(X) __builtin_expect((c,1))
-#define CE_UNLIKLY(X) __builtin_expect((x),0)
-#define CE_UNREACHABLE() __builtin_unreachable()
-#define CE_ALIGN_DECL(align,decl) decl __attribute__ ((aligned (align)))
-#define CE_THREAD __thread
+	#define CE_LIKELY(X) __builtin_expect((c,1))
+	#define CE_UNLIKLY(X) __builtin_expect((x),0)
+	#define CE_UNREACHABLE() __builtin_unreachable()
+	#define CE_ALIGN_DECL(align,decl) decl __attribute__ ((aligned (align)))
+	#define CE_THREAD __thread
 #elif CROWN_COMPILER_MSVC
-#define CE_LIKELY(x) (x)
-#define CE_UNLIKELY(x) (x)
-#define CE_UNREACHABLE()
-#define CE_ALIGN_DECL(align_, decl) __declspec (align(align_)) decl
-#define CE_THREAD __declspec(thread)
+	#define CE_LIKELY(x) (x)
+	#define CE_UNLIKELY(x) (x)
+	#define CE_UNREACHABLE()
+	#define CE_ALIGN_DECL(align_, decl) __declspec (align(align_)) decl
+	#define CE_THREAD __declspec(thread)
 #else
 	#error "Unknown compiler"
 #endif

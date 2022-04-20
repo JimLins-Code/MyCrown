@@ -9,8 +9,8 @@
 
 #include "core/error/error.h"
 
-#ifdef CROWN_DEBUG
-#define CE_ASSERT(condition,msg, ...)						\
+#if CROWN_DEBUG
+	#define CE_ASSERT(condition,msg, ...)						\
 			do													\
 			{													\
 				if (CE_UNLIKELY(!(condition)))					\
@@ -27,7 +27,7 @@
 				}												\
 			} while (0)
 #else
-#define CE_ASSERT(...) CE_NOOP()
+	#define CE_ASSERT(...) CE_NOOP()
 #endif// CROWN_DEBUG
 
 #define CE_FATAL(msg,...) CE_ASSERT(false,msg,## __VA_ARGS__)
