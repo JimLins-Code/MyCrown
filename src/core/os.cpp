@@ -160,7 +160,7 @@ namespace crown
 			else
 				dr.error = DeleteResult::UNKNOWN;
 #elif CROWN_PLATFORM_WINDOWS
-			if (DeleteFileA(path) != 0)
+			if (RemoveDirectoryA(path) != 0)
 				dr.error = DeleteResult::SUCCESS;
 			else if (GetLastError() == ERROR_FILE_NOT_FOUND)
 				dr.error = DeleteResult::NO_ENTRY;
