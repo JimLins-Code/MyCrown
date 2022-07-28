@@ -17,6 +17,10 @@ namespace crown
 {
 	namespace memory
 	{
+		/*
+		&(位与),|（位或）,^（位异或）,~（位非）
+		<<（左移）,>>（右移）,>>>（无符号右移）
+		*/
 		inline void* align_top(const void* p, u32 align)
 		{
 			CE_ASSERT(align >= 1, "Alignment must be > 1");

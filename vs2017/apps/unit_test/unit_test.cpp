@@ -16,6 +16,9 @@
 #include "core/containers/vector.inl"
 #include "core/containers/hash_map.inl"
 #include "device/log.h"
+#include "core/os.h"
+
+#include "CountTime.h"
 
 
 using namespace crown;
@@ -377,6 +380,39 @@ static void test_hash_map()
 	}
 }
 
+
+static void test_filesystem()
+{
+
+	guid_globals::init();
+
+	{
+		Guid id = guid::new_guid();
+		char dir[7 + GUID_BUF_LEN] = "E:/tmp";
+		//guid::to_string(dir + 7, sizeof(dir) - 7, id);
+		DeleteResult dr = os::delete_directory(dir);
+		ENSURE(dr.error == DeleteResult::NO_ENTRY);
+	}
+
+	{
+		Guid id = guid::new_guid();
+		char dir[8 + GUID_BUF_LEN] = "E:/tmpblh";
+		//guid::to_string(dir + 5, sizeof(dir) - 5, id);
+		os::delete_directory(dir);
+		CreateResult cr = os::create_directory(dir);
+		//ENSURE(cr.error == CreateResult::SUCCESS);
+
+		cr = os::create_directory(dir);
+		//ENSURE(cr.error == CreateResult::ALREADY_EXISTS);
+		DeleteResult dr = os::delete_directory(dir);
+		ENSURE(dr.error == DeleteResult::SUCCESS);
+	}
+
+	guid_globals::shutdown();
+}
+
+
+
 static void testLogApi()
 {
 	TempAllocator1024 ta;
@@ -435,30 +471,6 @@ static void testDynamicString()
 	std::clock_t end = std::clock();
 	std::cout << "excute times: " << (double)(end - start) << "ms" << std::endl;
 }
-#include <sstream>
-#include <iostream>
-#include <fstream>
-#include <stdio.h>
-time_t t1;
-time_t t2;
-std::string istr;
-static void timeStart()
-{
-	time(&t1);
-}
-
-static void timeStop(const char* s)
-{
-	time(&t2);
-	istr += s;
-	istr += "\n";
-}
-
-static void saveTimeProfile()
-{
-	std::ofstream out("tx3StartTimeProfile.txt",std::fstream::out);
-	out << istr.c_str();
-}
 
 
 #define RUN_TEST(name)		\
@@ -467,11 +479,6 @@ static void saveTimeProfile()
 		name();				\
 	}while(0)				\
 
-static bool exist(const std::string& name)
-{
-	std::ifstream infile(name);
-	return infile.good();
-}
 
 int main()
 {
@@ -486,25 +493,22 @@ int main()
 // 	std::cout << a[1] << std::endl;
 // 	std::cout << a[2] << std::endl;
 // 
-	timeStart();
+
  	RUN_TEST(test_memory);
  	RUN_TEST(test_string_view);
  	RUN_TEST(test_dynamic_string);
-	timeStop("test_memory finished");
-	timeStart();
  	//RUN_TEST(test_string_id);
  	RUN_TEST(test_thread); //crash need to check
  	RUN_TEST(test_array);
-	timeStop("test_array finished");
-	timeStart();
+
  	RUN_TEST(test_vector);
  	RUN_TEST(test_hash_map);
 
-	RUN_TEST(testStdString);
-	RUN_TEST(testDynamicString);
-	timeStop("main test finished");
+	RUN_TEST(test_filesystem);
+// 	RUN_TEST(testStdString);
+// 	RUN_TEST(testDynamicString);
 
-	//saveTimeProfile();
+
 	RUN_TEST(testLogApi);
 
 	system("pause");

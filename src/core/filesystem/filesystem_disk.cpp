@@ -284,6 +284,18 @@ namespace crown
 		return os::delete_directory(abs_path.c_str());
 	}
 
+	DeleteResult FilesystemDisk::delete_file(const char * path)
+	{
+		CE_ASSERT(NULL != path);
+
+		TempAllocator256 ta;
+		DynamicString abs_path(ta);
+		absolute_path(abs_path, path);
+
+		return os::delete_file(abs_path.c_str());
+
+	}
+
 	void FilesystemDisk::list_files(const char* path, Vector<DynamicString>& files)
 	{
 		CE_ENSURE(NULL != path);
