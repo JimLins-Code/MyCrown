@@ -29,6 +29,104 @@
      open/close files, create/delete directory, open/read files
 
 	* error
+	
+	  
+
+---
+
+### 2022-8-2
+
+#### C++ 内存对齐——alignof
+
+对于内存地址 a 来说，如果的地址是 n (那是2的幂次方)字节的倍数，那么内存地址 a 是n-byte-aligned。C++ 支持align操作允许开发者控制对象的内存分布。例如：
+
+```c++
+#include <iostream>
+using namespace std;
+
+struct struct_sse {
+	float data[4];
+};
+struct alignas(16) struct_sse_align {
+	float data_align[4];
+};
+
+struct Test1 {
+	char a;
+	struct_sse b;
+};
+struct Test2 {
+	char a;
+	struct_sse_align b;
+};
+
+int main()
+{
+	// 4
+	cout << alignof(struct_sse) << endl;
+	// 16
+	cout << alignof(struct_sse_align) << endl;
+	// 20
+	cout << sizeof(Test1) << endl;
+	// 32
+	cout << sizeof(Test2) << endl;
+}
+/*
+需要注意的是：align之后，当结构体中有指定align的对象，其它的成员都是以该指定align对象的内存字节对齐；例如上述Test2。
+需要注意可能造成内存碎片浪费。
+*/
+```
+
+进行内存对齐 align 操作，是为了内存/Cache访问优化；加快地址索引。
+
+#### 动态分配内存
+
+需要注意：上面的alignas 的声明，只对静态/栈上的变量有效。如果对象是动态分配在堆上的，其内存对象不一定是指定的对齐方式。编译器会报如下警告：
+
+```
+warning C4316: 'TestObj': object allocated on the heap may not be aligned 16
+```
+
+如果想要堆上的对象也保证内存对齐，重载new和delete操作符可实现。
+
+```c++
+struct alignas(16) MATRIX{
+	float m[4][4];
+};
+struct TestObj{
+	int a;
+	char d;
+	MATRIX e;
+	char f;
+	MATRIX g;
+	void * operator new(size_t s)
+	{
+		if (s==0)
+			s = 1;
+		return _aligned_malloc(s,16);
+	}
+	void operator delete (void *p)
+	{
+		if(p)
+			_aligned_free(p);
+	}
+	
+}
+```
+
+
+
+#### 参考
+
+1，align c++ in msvc	 https://docs.microsoft.com/en-us/cpp/cpp/align-cpp?view=msvc-160
+
+2，c++ alignas	https://en.cppreference.com/w/cpp/language/alignas
+
+3，msvc malloc alignment	https://docs.microsoft.com/en-us/cpp/build/stack-usage?view=msvc-150#malloc-alignment
+
+4， memory alloc	https://vayudoot.org/cpp/programming/2019/06/01/memaligned-malloc.html
+
+---
 
 
 
@@ -53,6 +151,10 @@
 
 * 标准C中，char == unit_8；wchar_t == unit_16 == short；LPCWSTR==w_char
 * unicode编码没有给字符占用两个字节。
+
+---
+
+
 
 ### 2022-4-12
 
@@ -81,6 +183,8 @@ crown的log设计简单总结下：
 2,定义的log等级LogSeverity，设计的api自动处理LogSeverity；
 3,平台无关性设计：os层，os层处理平台相关的api调用。os只保证接收log层的char*参数。打印到输出流。
 ```
+
+---
 
 
 

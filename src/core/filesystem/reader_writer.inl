@@ -19,9 +19,10 @@ namespace crown
 	inline void BinaryWriter::align(const u32 align)
 	{
 		const u32 mask = align - 1;
-		const u32 pos = (_file.position() + mask) & ~mask;
-		const u32 pad = pos - _file.position();
+		const u32 pos = (_file.position() + mask) & ~mask;//计算align的下一个位置pos，pos是align对齐后下一个下入的位置
+		const u32 pad = pos - _file.position();// 计算当前位置到下一个align后写入位置的差值；也就是因对齐后无用的内存（碎片）
 		const char val = 0;
+		// 碎片位置全部补齐0
 		for (u32 ii = 0; ii < pad; ++ii)
 			_file.write(&val, 1);
 	}
